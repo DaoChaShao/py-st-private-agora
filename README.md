@@ -26,7 +26,8 @@ This application is licensed under the [BSD-3-Clause License](LICENSE). You can 
 This guide outlines the steps to automatically generate and maintain a project changelog using git-changelog.
 
 1. Install the required dependencies with the command `pip install git-changelog`.
-2. Run the command `pip show git-changelog` to check whether the changelog package has been installed and its version.
+2. Run the command `pip show git-changelog` or `pip show git-changelog | grep Version` to check whether the changelog
+   package has been installed and its version.
 3. Prepare the configuration file of `pyproject.toml` at the root of the file.
 4. The changelog style is [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 5. Run the command `git-changelog`, creating the `Changelog.md` file.
@@ -38,4 +39,5 @@ This guide outlines the steps to automatically generate and maintain a project c
 ---
 
 1. Install NiceGUI with the command `pip install streamlit`.
-2. Run the command `pip show streamlit` to check whether the package has been installed and its version.
+2. Run the command `pip show streamlit` or `pip show streamlit | grep Version` to check whether the package has been
+   installed and its version.
