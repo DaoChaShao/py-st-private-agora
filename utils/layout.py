@@ -6,15 +6,21 @@
 # @File     :   layout.py
 # @Desc     :   
 
-from streamlit import set_page_config, Page, navigation, session_state
+from streamlit import (set_page_config, Page, navigation,
+                       session_state, markdown, columns, button, rerun,
+                       write)
 
-from utils.login import authority_checker
+from utils.JHCLoader import jhc_loader
 
 
 def window_setter() -> None:
     """ Set the window configuration.
     :return: None
     """
+    # Inject the custom JavaScript, HTML, and CSS for the layout
+    # jhc_loader("static/script", "static/index", "static/style")
+
+    # Set page configuration
     set_page_config(
         page_title="Private Agora",
         page_icon=":material/local_convenience_store:",
@@ -27,36 +33,69 @@ def subpages_setter() -> None:
     """ Set the subpages on the sidebar.
     :return: None
     """
-    # Check the authentication status of the user
-    if not session_state.get("authenticated", False):
-        authority_checker()
-        return
-    else:
-        pages: dict = {
-            "page": [
-                "subpages/home.py",
-                "subpages/about.py",
-            ],
-            "title": [
-                "Home",
-                "About",
-            ],
-            "icon": [
-                ":material/home:",
-                ":material/info:",
-            ],
-        }
+    # Set the layout for the welcome message and the logout button
+    left, right = columns([6, 1], gap="small", vertical_alignment="center")
+    with left:
+        # Display the welcome message
+        markdown(
+            f"""
+            <div style="display: flex; align-items: center; padding: 0.5rem 1rem; border-radius: 8px;">
+                <span style="font-size: 1.5rem;">
+                👋 Welcome, <strong>{session_state["username"]}</strong> ：）
+                </span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    with right:
+        # Display the logout button
+        if button("Logout", type="primary", icon=":material/logout:", use_container_width=True):
+            # Clear the session state to log out the user
+            session_state.clear()
+            rerun()
 
-        structure: dict = {
-            "Introduction": [
-                Page(page=pages["page"][0], title=pages["title"][0], icon=pages["icon"][0]),
-            ],
-            "Core Functions": [
+    # Set the structure of the sidebar navigation
+    pages: dict = {
+        "page": [
+            "subpages/home.py",
+            "subpages/about.py",
+        ],
+        "title": [
+            "Home",
+            "About",
+        ],
+        "icon": [
+            ":material/home:",
+            ":material/info:",
+        ],
+    }
 
-            ],
-            "Information": [
-                Page(page=pages["page"][1], title=pages["title"][1], icon=pages["icon"][1]),
-            ],
+    structure: dict = {
+        "Introduction": [
+            Page(page=pages["page"][0], title=pages["title"][0], icon=pages["icon"][0]),
+        ],
+        "Core Functions": [
+
+        ],
+        "Information": [
+            Page(page=pages["page"][1], title=pages["title"][1], icon=pages["icon"][1]),
+        ],
+    }
+    pg = navigation(structure, position="sidebar", expanded=True)
+    pg.run()
+
+
+def sidebar_hider():
+    markdown(
+        """
+        <style>
+        [data-testid="stSidebar"] {
+            display: none;
         }
-        pg = navigation(structure, position="sidebar", expanded=True)
-        pg.run()
+        [data-testid="collapsedControl"] {
+            display: none;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
