@@ -5,6 +5,12 @@
 
 ### Features
 
+- add trade.py with the main function and initial setup ([cfca936](https://github.com///commit/cfca9363c9fa6826023365de504a87d0275d7599))
+- update layout.py to include new pages for the account, display, and trade ([974be62](https://github.com///commit/974be621fb9e531dee094c10e3e318d9fea434b8))
+- add display.py with the main function and initial setup ([da2711e](https://github.com///commit/da2711e789d70bc1872e42010085b8acc3085ed6))
+- create account.py with the main function and initial setup ([21393a5](https://github.com///commit/21393a504de419503859f60fe6c70a4033e54118))
+- add .gitignore to exclude IDE files, virtual environments, and cache ([89d6054](https://github.com///commit/89d60542e1c11f9a981c0daac3445f9b631362ea))
+- add CHANGELOG.md for version 0.1.0 with features and updates ([54ef3c4](https://github.com///commit/54ef3c4886a1d974bed418d8eb33c2a093856e22))
 - implement authentication check and sidebar visibility control ([06d5d0a](https://github.com///commit/06d5d0adb2e1c42d7a6677459cc43a1b357a45db))
 - enhance layout with welcome message and logout functionality ([2ffdadb](https://github.com///commit/2ffdadb0e668b0768304cf302b251a066f1f15ba))
 - store username in session state upon successful login ([7fb12da](https://github.com///commit/7fb12da32bd26f36326281b0aace4fde829a5a88))
@@ -19,7 +25,6 @@
 - add helper.py with initial metadata and description ([c31218f](https://github.com///commit/c31218f559adaf6f26c26dc86cb7dc5798fbd065))
 - add about.py for application information and introduction ([73debf0](https://github.com///commit/73debf0d8d19d95cedf3bbed726add56b09b40f8))
 - add __init__.py with main function and initial structure ([df27a4d](https://github.com///commit/df27a4d5a9ade49af4ad8f6acb176d78caa530b2))
-- add .gitignore to exclude IDE files, virtual environments, and cache ([97663f5](https://github.com///commit/97663f5c6f13581bff30fd119789cf1ad3dac864))
 - add main.py with initial structure for the application ([ac2cb25](https://github.com///commit/ac2cb25adf897268546a9e6f1bcabab0c957fc42))
 - add pyproject.toml for changelog configuration ([9dff5c4](https://github.com///commit/9dff5c4766238f3e082918ceecdce9f31647da51))
 - add requirements.txt for git-changelog dependency ([5001c08](https://github.com///commit/5001c0879a0c9b94a7c9a03dad0c1177c4dd702c))
