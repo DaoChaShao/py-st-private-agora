@@ -1,10 +1,16 @@
 <!-- insertion marker -->
 <a name="0.1.0"></a>
 
-## [0.1.0](https://github.com///compare/e8ac234ee3cc02be05bf1225cfe3f34ef896faf2...0.1.0) (2025-07-20)
+## [0.1.0](https://github.com///compare/e8ac234ee3cc02be05bf1225cfe3f34ef896faf2...0.1.0) (2025-07-21)
 
 ### Features
 
+- update requirements.txt to include faker and pandas-stubs for enhanced functionality ([de179f3](https://github.com///commit/de179f348cb35231b2b5b2b3205089a05f479173))
+- add Timer and SeedSetter classes for performance measurement and reproducibility ([1dcb914](https://github.com///commit/1dcb91488632de66b973fba7d30cac3be65a3738))
+- implement sidebar for data selection and display in display.py ([dd6162a](https://github.com///commit/dd6162ae6865367901b09e14da225ced098e2642))
+- add database.py with functions to generate random social media and short video data ([5139397](https://github.com///commit/5139397b29138167095437d374372ec5497e928b))
+- enhance account.py to include Streamlit sidebar for account settings ([318d33d](https://github.com///commit/318d33db0767bb7adf8509168cf58909c75d5504))
+- update CHANGELOG.md for version 0.1.0 with new features and updates ([c33fc8f](https://github.com///commit/c33fc8f59d27d64c6785b88653f13bce86207a02))
 - add trade.py with the main function and initial setup ([cfca936](https://github.com///commit/cfca9363c9fa6826023365de504a87d0275d7599))
 - update layout.py to include new pages for the account, display, and trade ([974be62](https://github.com///commit/974be621fb9e531dee094c10e3e318d9fea434b8))
 - add display.py with the main function and initial setup ([da2711e](https://github.com///commit/da2711e789d70bc1872e42010085b8acc3085ed6))
