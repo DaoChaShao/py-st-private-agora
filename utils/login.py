@@ -54,6 +54,8 @@ def authority_checker() -> bool:
                     # - set "authenticated" in the session state
                     # - its value of session state is True
                     session_state["authenticated"] = True
+                    # Store the username in the session state
+                    session_state["username"] = username
                     rerun()
                 elif username == "" and password == "":
                     empty_messages.info("Username and Password cannot be **EMPTY**!")
