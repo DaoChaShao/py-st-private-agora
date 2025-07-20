@@ -58,14 +58,23 @@ def subpages_setter() -> None:
     pages: dict = {
         "page": [
             "subpages/home.py",
+            "subpages/account.py",
+            "subpages/display.py",
+            "subpages/trade.py",
             "subpages/about.py",
         ],
         "title": [
             "Home",
+            "Account",
+            "Data Display",
+            "Trade",
             "About",
         ],
         "icon": [
             ":material/home:",
+            ":material/account_circle:",
+            ":material/table_view:",
+            ":material/currency_exchange:",
             ":material/info:",
         ],
     }
@@ -75,10 +84,12 @@ def subpages_setter() -> None:
             Page(page=pages["page"][0], title=pages["title"][0], icon=pages["icon"][0]),
         ],
         "Core Functions": [
-
+            Page(page=pages["page"][1], title=pages["title"][1], icon=pages["icon"][1]),
+            Page(page=pages["page"][2], title=pages["title"][2], icon=pages["icon"][2]),
+            Page(page=pages["page"][3], title=pages["title"][3], icon=pages["icon"][3]),
         ],
         "Information": [
-            Page(page=pages["page"][1], title=pages["title"][1], icon=pages["icon"][1]),
+            Page(page=pages["page"][4], title=pages["title"][4], icon=pages["icon"][4]),
         ],
     }
     pg = navigation(structure, position="sidebar", expanded=True)
