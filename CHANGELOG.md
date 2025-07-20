@@ -1,10 +1,17 @@
 <!-- insertion marker -->
 <a name="0.1.0"></a>
 
-## [0.1.0](https://github.com///compare/e8ac234ee3cc02be05bf1225cfe3f34ef896faf2...0.1.0) (2025-07-19)
+## [0.1.0](https://github.com///compare/e8ac234ee3cc02be05bf1225cfe3f34ef896faf2...0.1.0) (2025-07-20)
 
 ### Features
 
+- implement authentication check and sidebar visibility control ([06d5d0a](https://github.com///commit/06d5d0adb2e1c42d7a6677459cc43a1b357a45db))
+- enhance layout with welcome message and logout functionality ([2ffdadb](https://github.com///commit/2ffdadb0e668b0768304cf302b251a066f1f15ba))
+- store username in session state upon successful login ([7fb12da](https://github.com///commit/7fb12da32bd26f36326281b0aace4fde829a5a88))
+- add JHCLoader.py for loading HTML, CSS, and JavaScript in Streamlit ([75c2ff7](https://github.com///commit/75c2ff7be8157ff88794ab913114c5a2b3475e63))
+- add style.css for basic styling setup ([7601413](https://github.com///commit/76014137405279638156b8b92ee9b30a496b279b))
+- add script.js file for core functionality ([c260d17](https://github.com///commit/c260d17738c7a06f21d57d0ce030d4bf5afa38f8))
+- add initial index.html file with basic structure ([34af76e](https://github.com///commit/34af76e054e77940fc40c9833d6faaf249f4c60a))
 - implement window and sidebar configuration in main.py ([a1c073b](https://github.com///commit/a1c073bbbb4f832c5b92f7d546f96ed915cd3c32))
 - add login.py for user authentication functionality ([11a1c9f](https://github.com///commit/11a1c9fec781c394a8aff795637c743163f3b798))
 - add layout.py for window and sidebar configuration ([dc10891](https://github.com///commit/dc10891e5549e566868ff6e727c4f35be3354301))
@@ -21,6 +28,7 @@
 
 ### Chore
 
+- add CHANGELOG.md for version 0.1.0 with features and updates ([1568f6c](https://github.com///commit/1568f6c9f01f34e4eec3d4fe9a57a84a129e1825))
 - update requirements.txt to include pandas and streamlit ([46a5e26](https://github.com///commit/46a5e26ea6e1de25ed1dc94c68f126f5a886e9e1))
 
 ### Docs
