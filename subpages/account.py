@@ -6,10 +6,10 @@
 # @File     :   account.py
 # @Desc     :   
 
-def main() -> None:
-    """ Main Function """
-    pass
+from streamlit import (sidebar, subheader, divider, empty, slider, button,
+                       data_editor, caption, spinner, )
 
+empty_messages: empty = empty()
 
-if __name__ == "__main__":
-    main()
+with sidebar:
+    subheader("Account Settings")
