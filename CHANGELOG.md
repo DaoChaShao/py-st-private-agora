@@ -5,6 +5,8 @@
 
 ### Features
 
+- enhance display.py to include data generation for mobile payments, health & fitness, and maps & navigation with duration selection ([6fa4500](https://github.com///commit/6fa45003928a84b7c55b0efbe87d6cb5a8baf83d))
+- enhance database.py with new data generation functions for social media, short videos, mobile payments, health & fitness, and navigation ([a252312](https://github.com///commit/a2523120984f796fb0966f764938c5d294b9e774))
 - update requirements.txt to include faker and pandas-stubs for enhanced functionality ([de179f3](https://github.com///commit/de179f348cb35231b2b5b2b3205089a05f479173))
 - add Timer and SeedSetter classes for performance measurement and reproducibility ([1dcb914](https://github.com///commit/1dcb91488632de66b973fba7d30cac3be65a3738))
 - implement sidebar for data selection and display in display.py ([dd6162a](https://github.com///commit/dd6162ae6865367901b09e14da225ced098e2642))
@@ -39,6 +41,7 @@
 
 ### Chore
 
+- update CHANGELOG.md for version 0.1.0 with new features and updates ([ad2d0b0](https://github.com///commit/ad2d0b0d6e927b734c52d64cc63afa219c94261e))
 - add CHANGELOG.md for version 0.1.0 with features and updates ([1568f6c](https://github.com///commit/1568f6c9f01f34e4eec3d4fe9a57a84a129e1825))
 - update requirements.txt to include pandas and streamlit ([46a5e26](https://github.com///commit/46a5e26ea6e1de25ed1dc94c68f126f5a886e9e1))
 
