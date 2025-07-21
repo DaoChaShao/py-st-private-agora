@@ -8,9 +8,13 @@
 
 from streamlit import (sidebar, subheader, selectbox, caption, empty,
                        button, slider, spinner, )
+from pandas import DataFrame
 
 from utils.database import (generator_social_media,
-                            generator_short_video, )
+                            generator_short_video,
+                            generator_mobile_payment,
+                            generator_health_fitness,
+                            generator_maps_navigation, )
 from utils.helper import Timer, SeedSetter
 
 empty_messages: empty = empty()
@@ -21,12 +25,31 @@ with sidebar:
     # Set the data number in the sidebar
     number: int = slider(
         "Select the Number of Data Points",
-        min_value=100, max_value=1000, value=200, step=1,
+        min_value=10, max_value=100, value=20, step=1,
         help="Choose the number of data points to display in the application."
     )
     caption(f"The number you select is {number}.")
+
+    # Set the data duration in the sidebar
+    weeks: list[int] = [7, 14, 21, 28]
+    week: int = selectbox(
+        "Select the Duration of Data",
+        weeks, index=0,
+        help="Choose the duration for which you want to generate data."
+    )
+    match week:
+        case 7:
+            week_num: int = 1
+        case 14:
+            week_num: int = 2
+        case 21:
+            week_num: int = 3
+        case _:
+            week_num: int = 4
+    caption(f"The duration you selected is {week_num} week.")
+
     # Set the data number in the sidebar
-    categories = ["Social Media", "Short Video", "Mobile Payment", "Health & Fitness ", "Maps & Navigation"]
+    categories = ["Social Media", "Short Video", "Mobile Payment", "Health & Fitness", "Maps & Navigation"]
     category: str = selectbox(
         "Select a Category of the Data",
         ["Select a category"] + categories, index=0,
@@ -45,11 +68,17 @@ with sidebar:
                 # Generate and display the data based on the selected category
                 match category:
                     case "Social Media":
-                        with Timer("Generating & Displaying **social media**", precision=3) as timer:
+                        with Timer("Generating & Displaying **SOCIAL MEDIA**", precision=3) as timer:
                             with SeedSetter():
-                                data = generator_social_media(number)
+                                data = generator_social_media(number, week)
+                                # Flatten the data structure for display
+                                flat = [
+                                    {**day, "gender": user["gender"], "age": user["age"]}
+                                    for user in data
+                                    for day in user["weekly_log"]
+                                ]
                                 empty_data.data_editor(
-                                    data,
+                                    DataFrame(flat),
                                     disabled=True,
                                     hide_index=True,
                                     use_container_width=True,
@@ -57,11 +86,71 @@ with sidebar:
                                 )
                         empty_messages.success(timer)
                     case "Short Video":
-                        with Timer("Generating & Displaying **short video**", precision=3) as timer:
+                        with Timer("Generating & Displaying **SHORT VIDEO**", precision=3) as timer:
                             with SeedSetter():
-                                data = generator_short_video(number)
+                                data = generator_short_video(number, week)
+                                # Flatten the data structure for display
+                                flat = [
+                                    {**day, "gender": user["gender"], "age": user["age"]}
+                                    for user in data
+                                    for day in user["weekly_behaviour"]
+                                ]
                                 empty_data.data_editor(
-                                    data,
+                                    DataFrame(flat),
+                                    disabled=True,
+                                    hide_index=True,
+                                    use_container_width=True,
+                                    height=525
+                                )
+                        empty_messages.success(timer)
+                    case "Mobile Payment":
+                        with Timer("Generating & Displaying **MOBILE PAYMENT**", precision=3) as timer:
+                            with SeedSetter():
+                                data = generator_mobile_payment(number, week)
+                                # Flatten the data structure for display
+                                flat = [
+                                    {**day, "gender": user["gender"], "age": user["age"]}
+                                    for user in data
+                                    for day in user["weekly_data"]
+                                ]
+                                empty_data.data_editor(
+                                    DataFrame(flat),
+                                    disabled=True,
+                                    hide_index=True,
+                                    use_container_width=True,
+                                    height=525
+                                )
+                        empty_messages.success(timer)
+                    case "Health & Fitness":
+                        with Timer("Generating & Displaying **HEALTH & FITNESS**", precision=3) as timer:
+                            with SeedSetter():
+                                data = generator_health_fitness(number, week)
+                                # Flatten the data structure for display
+                                flat = [
+                                    {**day, "gender": user["gender"], "age": user["age"]}
+                                    for user in data
+                                    for day in user["weekly_data"]
+                                ]
+                                empty_data.data_editor(
+                                    DataFrame(flat),
+                                    disabled=True,
+                                    hide_index=True,
+                                    use_container_width=True,
+                                    height=525
+                                )
+                        empty_messages.success(timer)
+                    case "Maps & Navigation":
+                        with Timer("Generating & Displaying **MAPS & NAVIGATION**", precision=3) as timer:
+                            with SeedSetter():
+                                data = generator_maps_navigation(number, week)
+                                # Flatten the data structure for display
+                                flat = [
+                                    {**day, "gender": user["gender"], "age": user["age"]}
+                                    for user in data
+                                    for day in user["weekly_usage"]
+                                ]
+                                empty_data.data_editor(
+                                    DataFrame(flat),
                                     disabled=True,
                                     hide_index=True,
                                     use_container_width=True,
