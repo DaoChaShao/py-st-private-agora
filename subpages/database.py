@@ -15,7 +15,7 @@ from utils.DB import SQLiteInitializer, is_db, db_remover
 empty_messages: empty = empty()
 
 # Statement of the SQLite database execution
-statement_init: str = dedent(
+STATEMENT_INIT: str = dedent(
     "CREATE TABLE IF NOT EXISTS users ("
     "id INTEGER PRIMARY KEY AUTOINCREMENT,"
     "gender TEXT NOT NULL,"
@@ -25,11 +25,11 @@ statement_init: str = dedent(
     "created_time TEXT NOT NULL);"
 )
 
-statement_check: str = dedent(
+STATEMENT_CHECK: str = dedent(
     "SELECT name FROM sqlite_master WHERE type='table';"
 )
 
-statement_display: str = dedent(
+STATEMENT_DISPLAY: str = dedent(
     "SELECT * FROM users;"
 )
 
@@ -55,7 +55,7 @@ with sidebar:
         ):
             with spinner("Creating the database..."):
                 # Initialise the SQLite database
-                with SQLiteInitializer(statement_init) as sqlite:
+                with SQLiteInitializer(STATEMENT_INIT) as sqlite:
                     session_state.db_created = True
                     empty_messages.success(f"Database `{db_name}` created successfully!")
 
@@ -67,7 +67,7 @@ with sidebar:
                     help="Click to check if the SQLite database with the name `db_sqlite` has been created.",
             ):
                 with spinner("Checking the database..."):
-                    if is_db(statement_check):
+                    if is_db(STATEMENT_CHECK):
                         empty_messages.info("The database has been created successfully.")
 
             # Display the database content
@@ -78,7 +78,7 @@ with sidebar:
                 with spinner("Displaying the database content..."):
                     empty_messages.info("Generating data, please wait...")
                     # Display the database content
-                    with SQLiteInitializer(statement_display) as sqlite:
+                    with SQLiteInitializer(STATEMENT_DISPLAY) as sqlite:
                         tables = sqlite.tables()
                         if tables:
                             for table in tables:
@@ -92,7 +92,7 @@ with sidebar:
                         else:
                             empty_messages.warning("The database is empty.")
 
-            # If the database has been created, and you can delete it if you want
+            # If the database has been created, you can delete it if you want
             if button(
                     "Delete Database", type="secondary", use_container_width=True,
                     help="Click to delete the SQLite database with the name `db_sqlite`."
