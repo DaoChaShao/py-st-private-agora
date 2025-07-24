@@ -3,12 +3,14 @@
 # @Time     :   2025/7/20 23:45
 # @Author   :   Shawn
 # @Version  :   Version 0.1.0
-# @File     :   database.py
+# @File     :   DB.py
 # @Desc     :   
 
 from datetime import datetime, timedelta
 from faker import Faker
+from os import path, remove
 from random import choice, randint, uniform, sample
+from sqlite3 import connect
 
 # Initialise Faker to generate random data
 fake = Faker("zh_CN")
@@ -59,7 +61,7 @@ NAVIGATION_PURPOSES: list[str] = ["commute", "travel", "shopping", "exercise", "
 FREQUENT_DESTINATION: list[str] = ["restaurant", "office", "coffee shop", "gym", "park", "home", "mall", "hospital"]
 
 
-def generator_social_media(user_num: int = 2, days: int = 7, start_date: str = "2025-01-01") -> list:
+def generator_social_media(user_num: int = 2, days: int = 7, start_date: str = "2024-01-01") -> list:
     """ Generate simulated social media user behaviour data.
     :param user_num: Number of the number of users
     :param days: The number of days per user
@@ -96,16 +98,22 @@ def generator_social_media(user_num: int = 2, days: int = 7, start_date: str = "
             }
             weekly_log.append(daily_log)
 
+        # Offer a price for the user's weekly social media data
+        price: int = round(randint(50, 300), 2)
+
         users_data.append({
             "gender": gender,
             "age": age,
-            "weekly_log": weekly_log
+            "category": "social media",
+            "price": price,
+            "content": weekly_log,
+            "create_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         })
 
     return users_data
 
 
-def generator_short_video(user_num: int = 2, days: int = 7, start_date: str = "2025-01-01") -> list:
+def generator_short_video(user_num: int = 2, days: int = 7, start_date: str = "2023-01-01") -> list:
     """ Generate short video behaviour data for multiple users over multiple days.
     :param user_num: The number of users to generate data for
     :param days: The number of days for which to generate data (default is 7) is
@@ -141,16 +149,22 @@ def generator_short_video(user_num: int = 2, days: int = 7, start_date: str = "2
             }
             weekly_behaviour.append(daily_behaviour)
 
+        # Offer a price for the user's weekly short video data
+        price: int = round(randint(50, 300), 2)
+
         users_data.append({
             "gender": gender,
             "age": age,
-            "weekly_behaviour": weekly_behaviour
+            "category": "short video",
+            "price": price,
+            "content": weekly_behaviour,
+            "create_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         })
 
     return users_data
 
 
-def generator_mobile_payment(user_num: int = 2, days: int = 7, start_date: str = "2025-01-01") -> list:
+def generator_mobile_payment(user_num: int = 2, days: int = 7, start_date: str = "2022-01-01") -> list:
     """ Generate data for multiple users weekly.
     :param user_num: The number of users to generate data for
     :param days: The number of days for which to generate data (default is 7) is
@@ -187,16 +201,22 @@ def generator_mobile_payment(user_num: int = 2, days: int = 7, start_date: str =
             }
             weekly_data.append(daily_data)
 
+        # Offer a price for the user's weekly mobile payment data
+        price: int = round(randint(50, 300), 2)
+
         users_data.append({
             "gender": gender,
             "age": age,
-            "weekly_data": weekly_data,
+            "category": "mobile payment",
+            "price": price,
+            "content": weekly_data,
+            "create_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         })
 
     return users_data
 
 
-def generator_health_fitness(user_num: int = 2, days: int = 7, start_date: str = "2025-01-01") -> list:
+def generator_health_fitness(user_num: int = 2, days: int = 7, start_date: str = "2021-01-01") -> list:
     """ Generate health and fitness data for multiple users over a week.
     :param user_num: Number of users
     :param days: The number of days to simulate
@@ -230,16 +250,22 @@ def generator_health_fitness(user_num: int = 2, days: int = 7, start_date: str =
             }
             weekly_data.append(daily_data)
 
+        # Offer a price for the user's weekly health and fitness data
+        price: int = round(randint(50, 300), 2)
+
         users_data.append({
             "gender": gender,
             "age": age,
-            "weekly_data": weekly_data,
+            "category": "health & fitness",
+            "price": price,
+            "content": weekly_data,
+            "create_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         })
 
     return users_data
 
 
-def generator_maps_navigation(user_num: int = 2, days: int = 7, start_date: str = "2025-01-01") -> list:
+def generator_maps_navigation(user_num: int = 2, days: int = 7, start_date: str = "2020-01-01") -> list:
     """ Generate navigation data for multiple users over a given number of days.
     :param user_num: Number of users to simulate
     :param days: The number of days to generate data for
@@ -277,10 +303,84 @@ def generator_maps_navigation(user_num: int = 2, days: int = 7, start_date: str 
 
             weekly_usage.append(daily_usage)
 
+        # Offer a price for the user's weekly navigation data
+        price: int = round(randint(50, 300), 2)
+
         users_data.append({
             "gender": gender,
             "age": age,
-            "weekly_usage": weekly_usage,
+            "category": "maps & navigation",
+            "price": price,
+            "content": weekly_usage,
+            "create_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         })
 
     return users_data
+
+
+class SQLiteInitializer(object):
+    """ A class to initialise the SQLite database. """
+
+    def __init__(self, statement: str, db_name: str = "db_sqlite") -> None:
+        """ Initialise the SQLite database with the given execution command.
+        :param statement: The SQL command to execute for initialising the database
+        :param db_name: The name of the database file (default is "db_sqlite.db")
+        """
+        self._statement = statement
+        self._db: str = f"{db_name}.db"
+        self._connection = None
+        self._cursor = None
+
+    def __enter__(self):
+        """ Establish and return the database connection when entering the context. """
+        # Establish a connection to the SQLite database
+        self._connection = connect(self._db)
+        # Set the cursor for executing SQL commands
+        self._cursor = self._connection.cursor()
+        # Execute the provided SQL command
+        self._cursor.execute(self._statement)
+        # Commit the changes to the database
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """ Commit and close the database connection when exiting the context."""
+        # Commit the changes and close the connection
+        if self._connection:
+            self._connection.commit()
+            self._connection.close()
+        if exc_type:
+            print(f"An error occurred: {exc_val}")
+        return False
+
+    def tables(self) -> list:
+        """ Retrieve the list of tables in the SQLite database.
+        :return: A list of table names in the database
+        """
+        self._cursor.execute(self._statement)
+        return self._cursor.fetchall()
+
+    def __str__(self):
+        """ Return a string representation of the SQLiteInitializer instance. """
+        return f"SQLiteInitializer(db_name={self._db}, statement={self._statement})"
+
+
+def is_db(statement: str, db_name: str = "db_sqlite") -> bool:
+    """ Check if the SQLite database exists.
+    :param statement: The SQL command to check for the existence of tables
+    :param db_name: The name of the database file (default is "db_sqlite")
+    :return: True if the database exists, False otherwise
+    """
+    with connect(f"{db_name}.db") as connection:
+        cursor = connection.cursor()
+        cursor.execute(statement)
+        tables = cursor.fetchall()
+        return len(tables) > 0
+
+
+def db_remover(db_name: str = "db_sqlite"):
+    """ Remove the SQLite database file if it exists.
+    :param db_name: The name of the database file to remove (default is "db_sqlite")
+    :return: None
+    """
+    if path.exists(f"{db_name}.db"):
+        remove(f"{db_name}.db")
