@@ -3,14 +3,14 @@
 # @Time     :   2025/7/25 00:06
 # @Author   :   Shawn
 # @Version  :   Version 0.1.0
-# @File     :   database.py
+# @File     :   DB.py
 # @Desc     :
 
 from streamlit import (sidebar, subheader, empty, text_input, button,
                        caption, spinner, session_state, rerun)
 from textwrap import dedent
 
-from utils.database import SQLiteInitializer, is_db, db_remover
+from utils.DB import SQLiteInitializer, is_db, db_remover
 
 empty_messages: empty = empty()
 
