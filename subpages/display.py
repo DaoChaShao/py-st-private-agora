@@ -9,6 +9,7 @@
 from streamlit import (sidebar, subheader, selectbox, caption, empty,
                        button, slider, spinner, )
 from pandas import DataFrame
+from textwrap import dedent
 
 from utils.DB import (generator_social_media,
                       generator_short_video,
@@ -19,6 +20,11 @@ from utils.helper import Timer, SeedSetter
 
 empty_messages: empty = empty()
 empty_data: empty = empty()
+
+# Statement of the SQLite database execution
+# STATEMENT_INSERT: str = dedent(
+#
+# )
 
 with sidebar:
     subheader("Data Categories")
@@ -59,7 +65,7 @@ with sidebar:
         caption(f"The category you selected is **{category}**.")
         empty_messages.info(f"Here you can explore the data related to **{category}**.")
         if button(
-                "Display & Insert Data", type="primary", use_container_width=True,
+                "Display Data", type="primary", use_container_width=True,
                 help="Click to display the data in this category."
         ):
             with spinner():
