@@ -49,6 +49,7 @@
 
 ### Chore
 
+- update CHANGELOG.md for version 0.1.0 with recent feature enhancements and bug fixes ([ce4668e](https://github.com///commit/ce4668e99919dbefd341b3f173026bafd3f94037))
 - update CHANGELOG.md for version 0.1.0 with recent feature enhancements and updates ([4f51279](https://github.com///commit/4f512799300747ffa09a3a7a508b4fd06820f9a9))
 - update CHANGELOG.md for version 0.1.0 with new features and updates ([ad2d0b0](https://github.com///commit/ad2d0b0d6e927b734c52d64cc63afa219c94261e))
 - add CHANGELOG.md for version 0.1.0 with features and updates ([1568f6c](https://github.com///commit/1568f6c9f01f34e4eec3d4fe9a57a84a129e1825))
@@ -61,5 +62,7 @@
 
 ### Code Refactoring
 
+- update display.py to improve code clarity and adjust button label ([63fbc22](https://github.com///commit/63fbc22e333aa22d095ec0f0ef6d345e76434d80))
+- rename SQL statement variables to uppercase for consistency ([d584060](https://github.com///commit/d5840606448415b6c7fe7e275adc72da583b73e6))
 - rename database.py to DB.py and update import paths ([92326c1](https://github.com///commit/92326c1429824ee6b3aa2a0d100ec3c86c1bbe56))
 
