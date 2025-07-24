@@ -10,11 +10,11 @@ from streamlit import (sidebar, subheader, selectbox, caption, empty,
                        button, slider, spinner, )
 from pandas import DataFrame
 
-from utils.database import (generator_social_media,
-                            generator_short_video,
-                            generator_mobile_payment,
-                            generator_health_fitness,
-                            generator_maps_navigation, )
+from utils.DB import (generator_social_media,
+                      generator_short_video,
+                      generator_mobile_payment,
+                      generator_health_fitness,
+                      generator_maps_navigation, )
 from utils.helper import Timer, SeedSetter
 
 empty_messages: empty = empty()
@@ -28,7 +28,7 @@ with sidebar:
         min_value=10, max_value=100, value=20, step=1,
         help="Choose the number of data points to display in the application."
     )
-    caption(f"The number you select is {number}.")
+    caption(f"The number you select is **{number}**.")
 
     # Set the data duration in the sidebar
     weeks: list[int] = [7, 14, 21, 28]
@@ -46,20 +46,20 @@ with sidebar:
             week_num: int = 3
         case _:
             week_num: int = 4
-    caption(f"The duration you selected is {week_num} week.")
+    caption(f"The duration you selected is **{week_num}** week.")
 
     # Set the data number in the sidebar
-    categories = ["Social Media", "Short Video", "Mobile Payment", "Health & Fitness", "Maps & Navigation"]
+    categories: list[str] = ["Social Media", "Short Video", "Mobile Payment", "Health & Fitness", "Maps & Navigation"]
     category: str = selectbox(
         "Select a Category of the Data",
         ["Select a category"] + categories, index=0,
         help="Choose a category to explore the data available in this section."
     )
     if category != "Select a category":
-        caption(f"The category you selected is {category}.")
+        caption(f"The category you selected is **{category}**.")
         empty_messages.info(f"Here you can explore the data related to **{category}**.")
         if button(
-                "Display", type="primary", use_container_width=True,
+                "Display & Insert Data", type="primary", use_container_width=True,
                 help="Click to display the data in this category."
         ):
             with spinner():
@@ -72,10 +72,14 @@ with sidebar:
                             with SeedSetter():
                                 data = generator_social_media(number, week)
                                 # Flatten the data structure for display
-                                flat = [
-                                    {**day, "gender": user["gender"], "age": user["age"]}
+                                flat: list[dict] = [
+                                    {
+                                        **day, "category": user["category"], "price": user["price"],
+                                        "gender": user["gender"], "age": user["age"],
+                                        "create_time": user["create_time"],
+                                    }
                                     for user in data
-                                    for day in user["weekly_log"]
+                                    for day in user["content"]
                                 ]
                                 empty_data.data_editor(
                                     DataFrame(flat),
@@ -90,10 +94,14 @@ with sidebar:
                             with SeedSetter():
                                 data = generator_short_video(number, week)
                                 # Flatten the data structure for display
-                                flat = [
-                                    {**day, "gender": user["gender"], "age": user["age"]}
+                                flat: list[dict] = [
+                                    {
+                                        **day, "category": user["category"], "price": user["price"],
+                                        "gender": user["gender"], "age": user["age"],
+                                        "create_time": user["create_time"],
+                                    }
                                     for user in data
-                                    for day in user["weekly_behaviour"]
+                                    for day in user["content"]
                                 ]
                                 empty_data.data_editor(
                                     DataFrame(flat),
@@ -108,10 +116,14 @@ with sidebar:
                             with SeedSetter():
                                 data = generator_mobile_payment(number, week)
                                 # Flatten the data structure for display
-                                flat = [
-                                    {**day, "gender": user["gender"], "age": user["age"]}
+                                flat: list[dict] = [
+                                    {
+                                        **day, "category": user["category"], "price": user["price"],
+                                        "gender": user["gender"], "age": user["age"],
+                                        "create_time": user["create_time"],
+                                    }
                                     for user in data
-                                    for day in user["weekly_data"]
+                                    for day in user["content"]
                                 ]
                                 empty_data.data_editor(
                                     DataFrame(flat),
@@ -126,10 +138,14 @@ with sidebar:
                             with SeedSetter():
                                 data = generator_health_fitness(number, week)
                                 # Flatten the data structure for display
-                                flat = [
-                                    {**day, "gender": user["gender"], "age": user["age"]}
+                                flat: list[dict] = [
+                                    {
+                                        **day, "category": user["category"], "price": user["price"],
+                                        "gender": user["gender"], "age": user["age"],
+                                        "create_time": user["create_time"],
+                                    }
                                     for user in data
-                                    for day in user["weekly_data"]
+                                    for day in user["content"]
                                 ]
                                 empty_data.data_editor(
                                     DataFrame(flat),
@@ -144,10 +160,14 @@ with sidebar:
                             with SeedSetter():
                                 data = generator_maps_navigation(number, week)
                                 # Flatten the data structure for display
-                                flat = [
-                                    {**day, "gender": user["gender"], "age": user["age"]}
+                                flat: list[dict] = [
+                                    {
+                                        **day, "category": user["category"], "price": user["price"],
+                                        "gender": user["gender"], "age": user["age"],
+                                        "create_time": user["create_time"],
+                                    }
                                     for user in data
-                                    for day in user["weekly_usage"]
+                                    for day in user["content"]
                                 ]
                                 empty_data.data_editor(
                                     DataFrame(flat),
