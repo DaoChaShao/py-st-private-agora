@@ -1,0 +1,109 @@
+#!/usr/bin/env python3.12
+# -*- Coding: UTF-8 -*-
+# @Time     :   2025/7/25 00:06
+# @Author   :   Shawn
+# @Version  :   Version 0.1.0
+# @File     :   database.py
+# @Desc     :
+
+from streamlit import (sidebar, subheader, empty, text_input, button,
+                       caption, spinner, session_state, rerun)
+from textwrap import dedent
+
+from utils.database import SQLiteInitializer, is_db, db_remover
+
+empty_messages: empty = empty()
+
+# Statement of the SQLite database execution
+statement_init: str = dedent(
+    "CREATE TABLE IF NOT EXISTS users ("
+    "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    "gender TEXT NOT NULL,"
+    "age INTEGER NOT NULL,"
+    "price REAL NOT NULL,"
+    "content TEXT NOT NULL,"
+    "created_time TEXT NOT NULL);"
+)
+
+statement_check: str = dedent(
+    "SELECT name FROM sqlite_master WHERE type='table';"
+)
+
+statement_display: str = dedent(
+    "SELECT * FROM users;"
+)
+
+with sidebar:
+    subheader("Database Management")
+    # Create a database such as SQLite
+    db_name: str = text_input(
+        "The name of the database",
+        value="db_sqlite", type="default", disabled=True,
+        help="Enter the name of your Database."
+    )
+    caption("The default database is SQLite, and the name is set to `db_sqlite`.")
+
+    if db_name == "db_sqlite":
+        # Check if the database has been created
+        if "db_created" not in session_state:
+            session_state.db_created = False
+
+        # Create a button to create the database
+        if button(
+                "Create Database", type="primary", use_container_width=True,
+                help="Click to create the SQLite database with the name `db_sqlite`.",
+        ):
+            with spinner("Creating the database..."):
+                # Initialise the SQLite database
+                with SQLiteInitializer(statement_init) as sqlite:
+                    session_state.db_created = True
+                    empty_messages.success(f"Database `{db_name}` created successfully!")
+
+        # Display or check whether the database exists
+        if session_state.db_created:
+            # Check if the database has been created
+            if button(
+                    "Check Database", type="secondary", use_container_width=True,
+                    help="Click to check if the SQLite database with the name `db_sqlite` has been created.",
+            ):
+                with spinner("Checking the database..."):
+                    if is_db(statement_check):
+                        empty_messages.info("The database has been created successfully.")
+
+            # Display the database content
+            if button(
+                    "Display Database", type="tertiary", use_container_width=True,
+                    help="Click to display the content of the SQLite database with the name `db_sqlite`."
+            ):
+                with spinner("Displaying the database content..."):
+                    empty_messages.info("Generating data, please wait...")
+                    # Display the database content
+                    with SQLiteInitializer(statement_display) as sqlite:
+                        tables = sqlite.tables()
+                        if tables:
+                            for table in tables:
+                                empty_messages.data_editor(
+                                    table,
+                                    disabled=True,
+                                    hide_index=True,
+                                    use_container_width=True,
+                                    # height=525,
+                                )
+                        else:
+                            empty_messages.warning("The database is empty.")
+
+            # If the database has been created, and you can delete it if you want
+            if button(
+                    "Delete Database", type="secondary", use_container_width=True,
+                    help="Click to delete the SQLite database with the name `db_sqlite`."
+            ):
+                with spinner("Deleting the database..."):
+                    # Reset the session state
+                    session_state.db_created = False
+                    db_remover()
+                    empty_messages.success(f"The database deleted successfully!")
+                    rerun()
+        else:
+            empty_messages.warning("The database has not been created yet.")
+    else:
+        empty_messages.error("Please enter the database name you like.")
