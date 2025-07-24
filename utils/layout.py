@@ -59,6 +59,7 @@ def subpages_setter() -> None:
         "page": [
             "subpages/home.py",
             "subpages/account.py",
+            "subpages/database.py",
             "subpages/display.py",
             "subpages/trade.py",
             "subpages/about.py",
@@ -66,6 +67,7 @@ def subpages_setter() -> None:
         "title": [
             "Home",
             "Account",
+            "Database",
             "Data Display",
             "Trade",
             "About",
@@ -73,6 +75,7 @@ def subpages_setter() -> None:
         "icon": [
             ":material/home:",
             ":material/account_circle:",
+            ":material/database:",
             ":material/table_view:",
             ":material/currency_exchange:",
             ":material/info:",
@@ -87,9 +90,10 @@ def subpages_setter() -> None:
             Page(page=pages["page"][1], title=pages["title"][1], icon=pages["icon"][1]),
             Page(page=pages["page"][2], title=pages["title"][2], icon=pages["icon"][2]),
             Page(page=pages["page"][3], title=pages["title"][3], icon=pages["icon"][3]),
+            Page(page=pages["page"][4], title=pages["title"][4], icon=pages["icon"][4]),
         ],
         "Information": [
-            Page(page=pages["page"][4], title=pages["title"][4], icon=pages["icon"][4]),
+            Page(page=pages["page"][5], title=pages["title"][5], icon=pages["icon"][5]),
         ],
     }
     pg = navigation(structure, position="sidebar", expanded=True)
