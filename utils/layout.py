@@ -67,9 +67,9 @@ def subpages_setter() -> None:
         "title": [
             "Home",
             "Account",
-            "Database",
-            "Data Display",
-            "Trade",
+            "Database Creation & Management",
+            "Data Display & Insert",
+            "Data Trade",
             "About",
         ],
         "icon": [
