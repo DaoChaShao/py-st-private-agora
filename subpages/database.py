@@ -5,12 +5,15 @@
 # @Version  :   Version 0.1.0
 # @File     :   DB.py
 # @Desc     :
+from json import loads
 
+from pandas import DataFrame
 from streamlit import (sidebar, subheader, empty, text_input, button,
                        caption, spinner, session_state, rerun)
 from textwrap import dedent
 
-from utils.DB import SQLiteInitializer, is_db, db_remover
+from utils.DB import (SQLiteInitializer,
+                      is_db, db_remover)
 
 empty_messages: empty = empty()
 
@@ -20,6 +23,7 @@ STATEMENT_INIT: str = dedent(
     "id INTEGER PRIMARY KEY AUTOINCREMENT,"
     "gender TEXT NOT NULL,"
     "age INTEGER NOT NULL,"
+    "category TEXT NOT NULL,"
     "price REAL NOT NULL,"
     "content TEXT NOT NULL,"
     "created_time TEXT NOT NULL);"
@@ -79,15 +83,30 @@ with sidebar:
                     empty_messages.info("Generating data, please wait...")
                     # Display the database content
                     with SQLiteInitializer(STATEMENT_DISPLAY) as sqlite:
-                        tables = sqlite.tables()
-                        if tables:
-                            for table in tables:
+                        rows = sqlite.table_display()
+                        columns = ["id", "gender", "age", "category", "price", "content", "created_time"]
+                        flat: list = []
+                        if rows:
+                            for row in rows:
+                                id, gender, age, category, price, content_str, created_time = row
+                                content_list: dict = loads(content_str)
+                                for content_item in content_list:
+                                    flat.append({
+                                        "id": id,
+                                        "gender": gender,
+                                        "age": age,
+                                        "category": category,
+                                        "price": price,
+                                        "created_time": created_time,
+                                        **content_item,
+                                    })
+                                # Display the table data in the Streamlit app
                                 empty_messages.data_editor(
-                                    table,
+                                    DataFrame(flat),
                                     disabled=True,
                                     hide_index=True,
                                     use_container_width=True,
-                                    # height=525,
+                                    height=600,
                                 )
                         else:
                             empty_messages.warning("The database is empty.")
