@@ -5,6 +5,9 @@
 
 ### Features
 
+- update layout.py to enhance menu titles for clarity and improved user navigation ([5d66f6d](https://github.com///commit/5d66f6df2729b9a3d6be23bd886ebe11c6c623f4))
+- enhance display.py to manage session state and insert data into the database ([84455b9](https://github.com///commit/84455b9bbf06dd5720e4809c4425a5989a94e46b))
+- add query_executor function to execute custom SQL queries and enhance user data handling ([2f97da2](https://github.com///commit/2f97da2af167398da3bcb40861769f3099a37d6b))
 - implement data trading settings with budget, duration, and category selection ([3cfedd8](https://github.com///commit/3cfedd80e044c0622d1b084bbcf7fb309423b3bc))
 - add database page to sidebar navigation with corresponding title and icon ([b358827](https://github.com///commit/b35882703d4a2f6c0ea3f43716399450124bc404))
 - add database management functionality with SQLite integration and user interaction ([58853c0](https://github.com///commit/58853c06af1eff55272360ec9d09a3008ba21922))
@@ -49,7 +52,7 @@
 
 ### Chore
 
-- update CHANGELOG.md for version 0.1.0 with recent feature enhancements and bug fixes ([ce4668e](https://github.com///commit/ce4668e99919dbefd341b3f173026bafd3f94037))
+- update CHANGELOG.md for version 0.1.0 with recent feature enhancements and bug fixes ([1ceed29](https://github.com///commit/1ceed29854ec808761cfffdc9d8f9827564533b6))
 - update CHANGELOG.md for version 0.1.0 with recent feature enhancements and updates ([4f51279](https://github.com///commit/4f512799300747ffa09a3a7a508b4fd06820f9a9))
 - update CHANGELOG.md for version 0.1.0 with new features and updates ([ad2d0b0](https://github.com///commit/ad2d0b0d6e927b734c52d64cc63afa219c94261e))
 - add CHANGELOG.md for version 0.1.0 with features and updates ([1568f6c](https://github.com///commit/1568f6c9f01f34e4eec3d4fe9a57a84a129e1825))
@@ -62,6 +65,7 @@
 
 ### Code Refactoring
 
+- enhance database.py to include category field and improve data display ([193ee54](https://github.com///commit/193ee54e71557f6880f2436e6e1ace7cc821000b))
 - update display.py to improve code clarity and adjust button label ([63fbc22](https://github.com///commit/63fbc22e333aa22d095ec0f0ef6d345e76434d80))
 - rename SQL statement variables to uppercase for consistency ([d584060](https://github.com///commit/d5840606448415b6c7fe7e275adc72da583b73e6))
 - rename database.py to DB.py and update import paths ([92326c1](https://github.com///commit/92326c1429824ee6b3aa2a0d100ec3c86c1bbe56))
