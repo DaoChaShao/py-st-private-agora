@@ -7,7 +7,8 @@
 # @Desc     :   
 
 from streamlit import (sidebar, subheader, selectbox, caption, empty,
-                       button, slider, spinner, )
+                       button, slider, spinner, session_state, rerun)
+from os import path
 from pandas import DataFrame
 from textwrap import dedent
 
@@ -15,16 +16,23 @@ from utils.DB import (generator_social_media,
                       generator_short_video,
                       generator_mobile_payment,
                       generator_health_fitness,
-                      generator_maps_navigation, )
+                      generator_maps_navigation,
+                      query_executor)
 from utils.helper import Timer, SeedSetter
 
 empty_messages: empty = empty()
 empty_data: empty = empty()
 
-# Statement of the SQLite database execution
-# STATEMENT_INSERT: str = dedent(
-#
-# )
+# Initialize the session state for the data
+for key in [
+    "social_media",
+    "short_video",
+    "mobile_payment",
+    "health_fitness",
+    "maps_navigation"
+]:
+    if key not in session_state:
+        session_state[key] = []
 
 with sidebar:
     subheader("Data Categories")
@@ -64,10 +72,18 @@ with sidebar:
     if category != "Select a category":
         caption(f"The category you selected is **{category}**.")
         empty_messages.info(f"Here you can explore the data related to **{category}**.")
+
+        # Check if the database is ready
+        if "data_ready" not in session_state:
+            session_state.data_ready = False
+
         if button(
                 "Display Data", type="primary", use_container_width=True,
                 help="Click to display the data in this category."
         ):
+
+            session_state.data_ready = True
+
             with spinner():
                 empty_messages.info("Generating data, please wait...")
 
@@ -76,7 +92,7 @@ with sidebar:
                     case "Social Media":
                         with Timer("Generating & Displaying **SOCIAL MEDIA**", precision=3) as timer:
                             with SeedSetter():
-                                data = generator_social_media(number, week)
+                                session_state.social_media = generator_social_media(number, week)
                                 # Flatten the data structure for display
                                 flat: list[dict] = [
                                     {
@@ -84,7 +100,7 @@ with sidebar:
                                         "gender": user["gender"], "age": user["age"],
                                         "create_time": user["create_time"],
                                     }
-                                    for user in data
+                                    for user in session_state.social_media
                                     for day in user["content"]
                                 ]
                                 empty_data.data_editor(
@@ -98,7 +114,7 @@ with sidebar:
                     case "Short Video":
                         with Timer("Generating & Displaying **SHORT VIDEO**", precision=3) as timer:
                             with SeedSetter():
-                                data = generator_short_video(number, week)
+                                session_state.short_video = generator_short_video(number, week)
                                 # Flatten the data structure for display
                                 flat: list[dict] = [
                                     {
@@ -106,7 +122,7 @@ with sidebar:
                                         "gender": user["gender"], "age": user["age"],
                                         "create_time": user["create_time"],
                                     }
-                                    for user in data
+                                    for user in session_state.short_video
                                     for day in user["content"]
                                 ]
                                 empty_data.data_editor(
@@ -120,7 +136,7 @@ with sidebar:
                     case "Mobile Payment":
                         with Timer("Generating & Displaying **MOBILE PAYMENT**", precision=3) as timer:
                             with SeedSetter():
-                                data = generator_mobile_payment(number, week)
+                                session_state.mobile_payment = generator_mobile_payment(number, week)
                                 # Flatten the data structure for display
                                 flat: list[dict] = [
                                     {
@@ -128,7 +144,7 @@ with sidebar:
                                         "gender": user["gender"], "age": user["age"],
                                         "create_time": user["create_time"],
                                     }
-                                    for user in data
+                                    for user in session_state.mobile_payment
                                     for day in user["content"]
                                 ]
                                 empty_data.data_editor(
@@ -142,7 +158,7 @@ with sidebar:
                     case "Health & Fitness":
                         with Timer("Generating & Displaying **HEALTH & FITNESS**", precision=3) as timer:
                             with SeedSetter():
-                                data = generator_health_fitness(number, week)
+                                session_state.health_fitness = generator_health_fitness(number, week)
                                 # Flatten the data structure for display
                                 flat: list[dict] = [
                                     {
@@ -150,7 +166,7 @@ with sidebar:
                                         "gender": user["gender"], "age": user["age"],
                                         "create_time": user["create_time"],
                                     }
-                                    for user in data
+                                    for user in session_state.health_fitness
                                     for day in user["content"]
                                 ]
                                 empty_data.data_editor(
@@ -164,7 +180,7 @@ with sidebar:
                     case "Maps & Navigation":
                         with Timer("Generating & Displaying **MAPS & NAVIGATION**", precision=3) as timer:
                             with SeedSetter():
-                                data = generator_maps_navigation(number, week)
+                                session_state.maps_navigation = generator_maps_navigation(number, week)
                                 # Flatten the data structure for display
                                 flat: list[dict] = [
                                     {
@@ -172,7 +188,7 @@ with sidebar:
                                         "gender": user["gender"], "age": user["age"],
                                         "create_time": user["create_time"],
                                     }
-                                    for user in data
+                                    for user in session_state.maps_navigation
                                     for day in user["content"]
                                 ]
                                 empty_data.data_editor(
@@ -185,6 +201,46 @@ with sidebar:
                         empty_messages.success(timer)
                     case _:
                         empty_messages.warning(f"Data for **{category}** is not yet available.")
+
+        # Set the button to insert the data into the database
+        if session_state.data_ready:
+            if button(
+                    "Insert Data", type="secondary", use_container_width=True,
+                    help="Click to insert the displayed data into the SQLite database."
+            ):
+                if path.exists("db_sqlite.db"):
+                    with spinner("Inserting data into the database..."):
+                        # Implement the logic to insert the data into your database
+                        match category:
+                            case "Social Media":
+                                for user in session_state.social_media:
+                                    query_executor(user)
+                                    empty_messages.success("Data **SOCIAL MEDIA** is inserted successfully!")
+                            case "Short Video":
+                                for user in session_state.short_video:
+                                    query_executor(user)
+                                    empty_messages.success("Data **SHORT VIDEO** is inserted successfully!")
+                            case "Mobile Payment":
+                                for user in session_state.mobile_payment:
+                                    query_executor(user)
+                                    empty_messages.success("Data **MOBILE PAYMENT** is inserted successfully!")
+                            case "Health & Fitness":
+                                for user in session_state.health_fitness:
+                                    query_executor(user)
+                                    empty_messages.success("Data **HEALTH & FITNESS** is inserted successfully!")
+                            case "Maps & Navigation":
+                                for user in session_state.maps_navigation:
+                                    query_executor(user)
+                                    empty_messages.success("Data **MAPS & NAVIGATION** is inserted successfully!")
+                            case _:
+                                pass
+
+                        session_state.data_ready = False
+                        rerun()
+                else:
+                    empty_messages.error(f"Data inserted into the database does not exist.")
+        else:
+            empty_messages.warning("No data to insert into the database. Please display data first.")
     else:
         caption("You must select a category to display the data.")
         empty_messages.info("Please **select a category** to explore the data.")
