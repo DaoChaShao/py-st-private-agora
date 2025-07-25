@@ -8,7 +8,9 @@
 
 from datetime import datetime, timedelta
 from faker import Faker
+from json import dumps, loads
 from os import path, remove
+from pandas import DataFrame
 from random import choice, randint, uniform, sample
 from sqlite3 import connect
 
@@ -352,7 +354,7 @@ class SQLiteInitializer(object):
             print(f"An error occurred: {exc_val}")
         return False
 
-    def tables(self) -> list:
+    def table_display(self) -> list:
         """ Retrieve the list of tables in the SQLite database.
         :return: A list of table names in the database
         """
@@ -383,4 +385,30 @@ def db_remover(db_name: str = "db_sqlite"):
     :return: None
     """
     if path.exists(f"{db_name}.db"):
+        # Connect to the database and delete all records from the 'users' table
+        with connect(f"{db_name}.db") as connection:
+            cursor = connection.cursor()
+            cursor.execute("DROP TABLE IF EXISTS users;")
+            connection.commit()
+
+        # Remove the database file
         remove(f"{db_name}.db")
+
+
+def query_executor(user: dict, db_name: str = "db_sqlite"):
+    """ Execute a custom SQL query on the SQLite database.
+    :return: None
+    """
+    connection = connect(f"{db_name}.db")
+    cursor = connection.cursor()
+    cursor.execute("INSERT INTO users (gender, age, category, price, content, created_time) VALUES (?, ?, ?, ?, ?, ?)",
+                   (
+                       user["gender"],
+                       user["age"],
+                       user["category"],
+                       user["price"],
+                       dumps(user["content"], ensure_ascii=False),
+                       user["create_time"],
+                   ))
+    connection.commit()
+    connection.close()
