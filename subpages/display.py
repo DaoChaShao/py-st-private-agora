@@ -10,7 +10,6 @@ from streamlit import (sidebar, subheader, selectbox, caption, empty,
                        button, slider, spinner, session_state, rerun)
 from os import path
 from pandas import DataFrame
-from textwrap import dedent
 
 from utils.DB import (generator_social_media,
                       generator_short_video,
@@ -23,7 +22,7 @@ from utils.helper import Timer, SeedSetter
 empty_messages: empty = empty()
 empty_data: empty = empty()
 
-# Initialize the session state for the data
+# Initialise the session state for the data
 for key in [
     "social_media",
     "short_video",
@@ -233,7 +232,7 @@ with sidebar:
                                     query_executor(user)
                                     empty_messages.success("Data **MAPS & NAVIGATION** is inserted successfully!")
                             case _:
-                                pass
+                                empty_messages.error(f"Data for **{category}** is not yet available.")
 
                         session_state.data_ready = False
                         rerun()
