@@ -10,12 +10,12 @@ from datetime import datetime, timedelta
 from faker import Faker
 from json import dumps, loads
 from os import path, remove
-from pandas import DataFrame
+from pandas import DataFrame, read_sql_query, json_normalize
 from random import choice, randint, uniform, sample
 from sqlite3 import connect
 
 # Initialise Faker to generate random data
-fake = Faker("zh_CN")
+fake = Faker()
 
 # General constants
 GENDERS: list[str] = ["male", "female"]
@@ -412,3 +412,100 @@ def query_executor(user: dict, db_name: str = "db_sqlite"):
                    ))
     connection.commit()
     connection.close()
+
+
+def price_getter(db_name: str = "db_sqlite") -> list[int]:
+    """ Retrieve the prices of all users from the SQLite database.
+    :param db_name: The name of the database file (default is "db_sqlite")
+    :return: A list of prices from the 'users' table
+    """
+    with connect(f"{db_name}.db") as connection:
+        cursor = connection.cursor()
+        cursor.execute("SELECT price FROM users;")
+        prices = cursor.fetchall()
+        return [price[0] for price in prices] if prices else []
+
+
+def data_knapsack_solver(prices: list[float], budget: int) -> tuple[int, list[int], int]:
+    """ Get the maximum number of items that can be purchased within the budget.
+    :param prices: List of item prices
+    :param budget: Total budget available for purchasing items
+    :return: A tuple containing the maximum number of items that can be purchased and the list of indices of the selected items
+    """
+    # Transform the prices to integers if they are not already
+    prices: list[int] = [int(price) for price in prices]
+    # The number of items (prices)
+    n: int = len(prices)
+
+    # Set a dynamic programming array to store the maximum number of items that can be purchased with a given budget
+    dp = [0] * (budget + 1)
+    # Record the path of selected items
+    paths: list[int] = [-1] * (budget + 1)
+
+    # To avoid selecting the same item multiple times, we use a path array to track the last selected item for each budget
+    for i in range(n):
+        price: int = prices[i]
+        for b in range(budget, price - 1, -1):
+            if dp[b] < dp[b - price] + 1:
+                dp[b] = dp[b - price] + 1
+                paths[b] = i
+
+    # # Set the path to backtrack the selected items
+    selected_indices: list[int] = []
+    # Set to track used items to avoid duplicates
+    used_items: set[int] = set()
+    # Start from the budget and backtrack to find the selected items
+    b = budget
+    # Initialise the cost of the selected items
+    cost: int = 0
+
+    while b >= 0 and paths[b] != -1:
+        i = paths[b]
+        if i in used_items:
+            b -= 1
+            # If the item has already been used, skip it.
+            continue
+        selected_indices.append(i)
+        used_items.add(i)
+        b -= prices[i]
+        cost += prices[i]
+
+    # Calculate the remaining budget after purchasing the selected items
+    balance: int = budget - cost
+
+    return len(selected_indices), selected_indices[::-1], balance
+
+
+def selected_data_filter(statement: str, selected_indices: list[int], db_name: str = "db_sqlite") -> DataFrame:
+    """ Filter the selected data based on the provided indices.
+    :param statement: The SQL statement to filter
+    :param selected_indices: The indices of the selected items
+    :param db_name: The name of the database file (default is "db_sqlite")
+    :return: A filtered DataFrame
+    """
+    # Check if the selected indices are duplicated
+    print("Selected indices:", selected_indices)
+    print("Unique indices:", list(set(selected_indices)))
+    print("Are there duplicates?", len(selected_indices) != len(set(selected_indices)))
+
+    with connect(f"{db_name}.db") as connection:
+        # Get a dataframe
+        df = read_sql_query(statement, connection)
+
+    return df.iloc[selected_indices]
+
+
+def flat_data_display(selected_df: DataFrame) -> DataFrame:
+    """ Flatten the selected data and return a DataFrame for display.
+    :param selected_df: The DataFrame to flatten
+    :return: A flattened DataFrame
+    """
+    rows: list = []
+    for _, row in selected_df.iterrows():
+        content = loads(str(row["content"]))
+        others: dict = row.drop("content").to_dict()
+        for item in content:
+            row = {**others, **item}
+            rows.append(row)
+
+    return json_normalize(rows)
