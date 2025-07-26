@@ -1,10 +1,12 @@
 <!-- insertion marker -->
 <a name="0.1.0"></a>
 
-## [0.1.0](https://github.com///compare/e8ac234ee3cc02be05bf1225cfe3f34ef896faf2...0.1.0) (2025-07-26)
+## [0.1.0](https://github.com///compare/e8ac234ee3cc02be05bf1225cfe3f34ef896faf2...0.1.0) (2025-07-27)
 
 ### Features
 
+- enhance home.py to improve application introduction and user guidance ([77d8cd2](https://github.com///commit/77d8cd22f0a6273ac032612be8a47201818b3771))
+- update about.py to enhance application information and user guidance ([fe275da](https://github.com///commit/fe275da2b221bd35392d7e475113ba43c979f9b7))
 - enhance trade.py to improve data trading interface and user experience ([8215de9](https://github.com///commit/8215de9de92d997b07c2ca8695f303eb586c9256))
 - add price retrieval and data processing functions to enhance data handling ([8cef2db](https://github.com///commit/8cef2dba4a74b2575996c484084f71bc6542792e))
 - update layout.py to enhance menu titles for clarity and improved user navigation ([5d66f6d](https://github.com///commit/5d66f6df2729b9a3d6be23bd886ebe11c6c623f4))
@@ -55,6 +57,7 @@
 
 ### Chore
 
+- update CHANGELOG.md for version 0.1.0 with recent feature additions and improvements ([fec4922](https://github.com///commit/fec492291fdc323d1a55188f6c82bb1e23eb76d6))
 - update CHANGELOG.md to include recent feature additions and improvements ([0463eae](https://github.com///commit/0463eae8bdf7b2d8b0c76d96f33b0fd138021a7e))
 - update CHANGELOG.md for version 0.1.0 with recent feature enhancements and bug fixes ([1ceed29](https://github.com///commit/1ceed29854ec808761cfffdc9d8f9827564533b6))
 - update CHANGELOG.md for version 0.1.0 with recent feature enhancements and updates ([4f51279](https://github.com///commit/4f512799300747ffa09a3a7a508b4fd06820f9a9))
