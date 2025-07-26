@@ -1,10 +1,12 @@
 <!-- insertion marker -->
 <a name="0.1.0"></a>
 
-## [0.1.0](https://github.com///compare/e8ac234ee3cc02be05bf1225cfe3f34ef896faf2...0.1.0) (2025-07-25)
+## [0.1.0](https://github.com///compare/e8ac234ee3cc02be05bf1225cfe3f34ef896faf2...0.1.0) (2025-07-26)
 
 ### Features
 
+- enhance trade.py to improve data trading interface and user experience ([8215de9](https://github.com///commit/8215de9de92d997b07c2ca8695f303eb586c9256))
+- add price retrieval and data processing functions to enhance data handling ([8cef2db](https://github.com///commit/8cef2dba4a74b2575996c484084f71bc6542792e))
 - update layout.py to enhance menu titles for clarity and improved user navigation ([5d66f6d](https://github.com///commit/5d66f6df2729b9a3d6be23bd886ebe11c6c623f4))
 - enhance display.py to manage session state and insert data into the database ([84455b9](https://github.com///commit/84455b9bbf06dd5720e4809c4425a5989a94e46b))
 - add query_executor function to execute custom SQL queries and enhance user data handling ([2f97da2](https://github.com///commit/2f97da2af167398da3bcb40861769f3099a37d6b))
@@ -48,10 +50,12 @@
 
 ### Bug Fixes
 
+- correct spelling in comments and improve error messaging for unavailable data ([03affd7](https://github.com///commit/03affd7fec774fe820b4ae0888f35ced8235edca))
 - update import paths and enhance data display formatting in display.py ([8c3946f](https://github.com///commit/8c3946f81ac6b4cfaf24b26aef523acef4d07ce1))
 
 ### Chore
 
+- update CHANGELOG.md to include recent feature additions and improvements ([0463eae](https://github.com///commit/0463eae8bdf7b2d8b0c76d96f33b0fd138021a7e))
 - update CHANGELOG.md for version 0.1.0 with recent feature enhancements and bug fixes ([1ceed29](https://github.com///commit/1ceed29854ec808761cfffdc9d8f9827564533b6))
 - update CHANGELOG.md for version 0.1.0 with recent feature enhancements and updates ([4f51279](https://github.com///commit/4f512799300747ffa09a3a7a508b4fd06820f9a9))
 - update CHANGELOG.md for version 0.1.0 with new features and updates ([ad2d0b0](https://github.com///commit/ad2d0b0d6e927b734c52d64cc63afa219c94261e))
