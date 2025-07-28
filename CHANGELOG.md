@@ -72,11 +72,14 @@
 
 ### Bug Fixes
 
+- update Streamlit link in README.zh-CN.md to reflect new URL ([dcbb4f0](https://github.com///commit/dcbb4f0368c0e6a7b77cdb1972beb8bb9bfbd8cd))
+- update Streamlit link in README.md to reflect new URL ([c2921b3](https://github.com///commit/c2921b34f020f879d5a5d788a3f9aea81d49d91e))
 - correct spelling in comments and improve error messaging for unavailable data ([03affd7](https://github.com///commit/03affd7fec774fe820b4ae0888f35ced8235edca))
 - update import paths and enhance data display formatting in display.py ([8c3946f](https://github.com///commit/8c3946f81ac6b4cfaf24b26aef523acef4d07ce1))
 
 ### Chore
 
+- update CHANGELOG.md with recent updates to login prompt for clarity ([fb441e0](https://github.com///commit/fb441e0dbb53f18642d9f9e96a11a5a0d4c2962b))
 - update CHANGELOG.md with recent updates to README files for clarity and accuracy ([cb2b207](https://github.com///commit/cb2b20781d8154311ddf57c6cd154ec9d0be8b5a))
 - update CHANGELOG.md with recent feature additions and improvements ([b4eb7a6](https://github.com///commit/b4eb7a6a1a1ff9c155392e5cdcfc7873779579e4))
 - update CHANGELOG.md for version 0.1.0 with recent date correction ([349d4ee](https://github.com///commit/349d4ee15fd81a0a9b67a09fc91359b5ce229dcf))
