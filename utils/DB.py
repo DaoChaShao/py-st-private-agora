@@ -509,3 +509,17 @@ def flat_data_display(selected_df: DataFrame) -> DataFrame:
             rows.append(row)
 
     return json_normalize(rows)
+
+
+def data_exists_checker(category: str, db_name: str = "db_sqlite") -> bool:
+    """ Check if the data exists in the database.
+    :param category: The category of data to check (e.g., "social media", "short video", etc.)
+    :param db_name: The name of the database file (default is "db_sqlite")
+    :return: True if data exists, False otherwise
+    """
+    with connect(f"{db_name}.db") as connection:
+        cursor = connection.cursor()
+        cursor.execute("SELECT COUNT(*) FROM users WHERE category = ?", (category.lower(),))
+        count = cursor.fetchone()[0]
+
+    return count > 0
