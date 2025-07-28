@@ -33,9 +33,13 @@ with expander("Application Introduction", expanded=True):
         "- 💸 **Simulate data trading** by setting a budget and selecting optimal datasets within your price range "
         "using a knapsack-style algorithm."
     )
-    caption("- 📂 **Examine flattened data** from nested JSON structures for further analysis.")
     caption(
-        "Whether you’re a student, researcher, or data enthusiast, "
-        "this simulator helps you understand how personal data might be categorised, stored, "
-        "and valued in a mock trading environment."
+        "- 🧠 **Analyze traded data** using LLMs (OpenAI or DeepSeek), with multi-language support "
+        "and markdown-style interpretation for deeper insights."
+    )
+    caption("- 📂 **Flatten and inspect nested JSON structures** for easier review and downstream use.")
+    caption(
+        "Whether you're a student, researcher, or data enthusiast, "
+        "this simulator helps you explore how personal data can be structured, valued, and interpreted "
+        "within a controlled and safe environment."
     )
