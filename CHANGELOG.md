@@ -1,10 +1,18 @@
 <!-- insertion marker -->
 <a name="0.1.0"></a>
 
-## [0.1.0](https://github.com///compare/e8ac234ee3cc02be05bf1225cfe3f34ef896faf2...0.1.0) (2025-07-27)
+## [0.1.0](https://github.com///compare/e8ac234ee3cc02be05bf1225cfe3f34ef896faf2...0.1.0) (2025-07-28)
 
 ### Features
 
+- store selected data in session state for improved data handling ([fdba86d](https://github.com///commit/fdba86d47540c564aad8bd178b36dfec59291ad5))
+- add OpenAI package to requirements for API integration ([41a7da6](https://github.com///commit/41a7da6b77e899c4da962a84edfab00434b9140f))
+- add model.py for OpenAI and DeepSeek completer API wrappers ([a003565](https://github.com///commit/a0035656bdde2cb4489312009ba1e30504aa857a))
+- update layout.py to include post-trade data analysis in navigation ([acb1cb7](https://github.com///commit/acb1cb7e0b28c29f6278e30926033e2e16505605))
+- add helper functions for data retrieval and prompt generation ([80a8e1c](https://github.com///commit/80a8e1c0bd82c9a8cdadc060321f8442e56e5fa7))
+- enhance display.py to improve data insertion handling and user feedback ([ff7d0bb](https://github.com///commit/ff7d0bba93740102ab91d689f53184b4e4c94fa3))
+- enhance database.py to improve database management and user interaction ([2332be5](https://github.com///commit/2332be533ad111d811a86c6fe62b606791c9fcb4))
+- add analysis.py for data trading analysis interface and model selection ([a1d129d](https://github.com///commit/a1d129d5d9b8378a5557be964338b7b279d1eca0))
 - enhance home.py to improve application introduction and user guidance ([77d8cd2](https://github.com///commit/77d8cd22f0a6273ac032612be8a47201818b3771))
 - update about.py to enhance application information and user guidance ([fe275da](https://github.com///commit/fe275da2b221bd35392d7e475113ba43c979f9b7))
 - enhance trade.py to improve data trading interface and user experience ([8215de9](https://github.com///commit/8215de9de92d997b07c2ca8695f303eb586c9256))
@@ -57,6 +65,7 @@
 
 ### Chore
 
+- update CHANGELOG.md for version 0.1.0 with recent date correction ([fe8923c](https://github.com///commit/fe8923c2817206da818238a8536881d21810ca20))
 - update CHANGELOG.md for version 0.1.0 with recent feature additions and improvements ([fec4922](https://github.com///commit/fec492291fdc323d1a55188f6c82bb1e23eb76d6))
 - update CHANGELOG.md to include recent feature additions and improvements ([0463eae](https://github.com///commit/0463eae8bdf7b2d8b0c76d96f33b0fd138021a7e))
 - update CHANGELOG.md for version 0.1.0 with recent feature enhancements and bug fixes ([1ceed29](https://github.com///commit/1ceed29854ec808761cfffdc9d8f9827564533b6))
