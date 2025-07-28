@@ -24,10 +24,11 @@ with expander("Application About", expanded=True):
     """)
     caption("""
     - 🧩 Key Features:
-      - Budget-based **data purchasing simulation** using optimisation algorithms.
-      - **Flat and structured data viewing**, allowing for easier exploration.
-      - **Built-in database** operations to manage the lifecycle of synthetic data.
-      - User-friendly **interface powered by Streamlit**, with live interaction and feedback.
+      - Budget-based **data trading simulation** using knapsack optimisation.
+      - **Structured and flattened data views**, ideal for inspection and downstream processing.
+      - Built-in **database operations** for managing synthetic data lifecycle.
+      - Seamless **integration with LLMs (OpenAI / DeepSeek)** for multilingual data interpretation and summarisation.
+      - Streamlit-powered **interactive UI** for real-time exploration and feedback.
     """)
     caption(
         "🛠️ Note: All data shown in the app is synthetically generated. "
