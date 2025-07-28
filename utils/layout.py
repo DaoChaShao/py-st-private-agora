@@ -62,6 +62,7 @@ def subpages_setter() -> None:
             "subpages/database.py",
             "subpages/display.py",
             "subpages/trade.py",
+            "subpages/analysis.py",
             "subpages/about.py",
         ],
         "title": [
@@ -70,6 +71,7 @@ def subpages_setter() -> None:
             "Database Creation & Management",
             "Data Display & Insert",
             "Data Trade",
+            "Post-Trade Data Analysis",
             "About",
         ],
         "icon": [
@@ -78,6 +80,7 @@ def subpages_setter() -> None:
             ":material/database:",
             ":material/table_view:",
             ":material/currency_exchange:",
+            ":material/robot:",
             ":material/info:",
         ],
     }
@@ -91,9 +94,10 @@ def subpages_setter() -> None:
             Page(page=pages["page"][2], title=pages["title"][2], icon=pages["icon"][2]),
             Page(page=pages["page"][3], title=pages["title"][3], icon=pages["icon"][3]),
             Page(page=pages["page"][4], title=pages["title"][4], icon=pages["icon"][4]),
+            Page(page=pages["page"][5], title=pages["title"][5], icon=pages["icon"][5]),
         ],
         "Information": [
-            Page(page=pages["page"][5], title=pages["title"][5], icon=pages["icon"][5]),
+            Page(page=pages["page"][6], title=pages["title"][6], icon=pages["icon"][6]),
         ],
     }
     pg = navigation(structure, position="sidebar", expanded=True)
