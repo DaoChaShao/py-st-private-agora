@@ -9,7 +9,7 @@
 from os import path
 from pandas import DataFrame
 from streamlit import (sidebar, subheader, empty, number_input, selectbox,
-                       caption, button, spinner, columns, metric)
+                       caption, button, spinner, columns, metric, session_state)
 
 from utils.DB import (price_getter,
                       data_knapsack_solver,
@@ -26,6 +26,9 @@ empty_description_P2: empty = empty()
 empty_description_p3: empty = empty()
 
 STATEMENT_DISPLAY: str = "SELECT * FROM users;"
+
+if "selected_data" not in session_state:
+    session_state.selected_data = None
 
 with sidebar:
     subheader("Data Trading Settings")
@@ -103,8 +106,8 @@ with sidebar:
                         #     use_container_width=True,
                         #     height=320,
                         # )
-                        selected_data = selected_data_filter(STATEMENT_DISPLAY, selected_indices)
-                        if not selected_data.empty:
+                        session_state.selected_data = selected_data_filter(STATEMENT_DISPLAY, selected_indices)
+                        if session_state.selected_data is not None:
                             with left:
                                 metric(
                                     "Data Trading Result",
@@ -118,12 +121,12 @@ with sidebar:
                                     delta=f"{count / len(prices) * 100:.2f}% of total items",
                                 )
                             empty_table_selected.data_editor(
-                                DataFrame(selected_data),
+                                DataFrame(session_state.selected_data),
                                 disabled=True,
                                 hide_index=True,
                                 use_container_width=True,
                             )
-                            flat = flat_data_display(selected_data)
+                            flat = flat_data_display(session_state.selected_data)
                             empty_table_flat.data_editor(
                                 DataFrame(flat),
                                 disabled=True,
