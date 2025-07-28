@@ -29,7 +29,7 @@ def authority_checker() -> bool:
         empty_messages: empty = empty()
 
         # Display the login tips
-        empty_messages.info("Please enter your username and password.")
+        empty_messages.info("Please enter your username — admin and password — admin.")
 
         # Create a form with fields for username and password
         with form("login", clear_on_submit=True, enter_to_submit=True, width=600):
