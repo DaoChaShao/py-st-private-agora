@@ -9,7 +9,8 @@
 from os import path
 from pandas import DataFrame
 from streamlit import (sidebar, subheader, empty, number_input, selectbox,
-                       caption, button, spinner, columns, metric, session_state)
+                       caption, button, spinner, columns, metric,
+                       session_state, markdown)
 
 from utils.DB import (price_getter,
                       data_knapsack_solver,
@@ -17,9 +18,12 @@ from utils.DB import (price_getter,
                       flat_data_display, )
 
 empty_messages: empty = empty()
+markdown("**Trading Result**")
 left, right = columns([1, 1], gap="large", vertical_alignment="center")
-empty_table_selected: empty = empty()
-empty_table_flat: empty = empty()
+empty_selected_title: empty = empty()
+empty_selected_table: empty = empty()
+empty_flat_title: empty = empty()
+empty_flat_table: empty = empty()
 empty_description_title: empty = empty()
 empty_description_p1: empty = empty()
 empty_description_P2: empty = empty()
@@ -43,7 +47,7 @@ with sidebar:
         caption(f"The category you selected is **{category}**.")
 
         # Display a description of the selected category
-        empty_description_title.subheader("**Data Description**")
+        empty_description_title.markdown("**Data Description**")
         match category:
             case "Social Media":
                 empty_description_p1.markdown("- Data comes from user behavior on social media platforms.")
@@ -87,56 +91,63 @@ with sidebar:
             if path.exists("db_sqlite.db"):
                 with spinner("Fetching data prices, please wait..."):
                     prices: list[int] = price_getter()
-                    # Display the prices in a table format
-                    # if prices:
-                    #     empty_table.data_editor(
-                    #         DataFrame({"Price": prices}),
-                    #         disabled=True,
-                    #         hide_index=False,
-                    #         use_container_width=True,
-                    #         height=320,
-                    #     )
-                    count, selected_indices, balance = data_knapsack_solver(prices, budget)
-                    if count > 0:
-                        empty_messages.success(f"Successful! {count} data items within your budget of ${budget}.")
-                        # empty_table.data_editor(
-                        #     DataFrame({"Price": prices}),
-                        #     disabled=True,
-                        #     hide_index=False,
-                        #     use_container_width=True,
-                        #     height=320,
-                        # )
-                        session_state.selected_data = selected_data_filter(STATEMENT_DISPLAY, selected_indices)
-                        if session_state.selected_data is not None:
-                            with left:
-                                metric(
-                                    "Data Trading Result",
-                                    f"$ {budget - balance}",
-                                    delta=f"$ {balance} left in budget",
-                                )
-                            with right:
-                                metric(
-                                    "Data Items Selected",
-                                    f"{count} items",
-                                    delta=f"{count / len(prices) * 100:.2f}% of total items",
-                                )
-                            empty_table_selected.data_editor(
-                                DataFrame(session_state.selected_data),
-                                disabled=True,
-                                hide_index=True,
-                                use_container_width=True,
-                            )
-                            flat = flat_data_display(session_state.selected_data)
-                            empty_table_flat.data_editor(
-                                DataFrame(flat),
-                                disabled=True,
-                                hide_index=True,
-                                use_container_width=True,
-                            )
-                        else:
-                            empty_messages.warning("No data items found for the selected indices.")
+
+                    if not prices:
+                        empty_messages.error("No data available in the database. Please insert data before trading.")
                     else:
-                        empty_messages.warning("Failed! You cannot buy any data items within your budget of ${budget}.")
+                        # Display the prices in a table format
+                        # if prices:
+                        #     empty_table.data_editor(
+                        #         DataFrame({"Price": prices}),
+                        #         disabled=True,
+                        #         hide_index=False,
+                        #         use_container_width=True,
+                        #         height=320,
+                        #     )
+                        count, selected_indices, balance = data_knapsack_solver(prices, budget)
+                        if count > 0:
+                            empty_messages.success(f"Successful! {count} data items within your budget of ${budget}.")
+                            # empty_table.data_editor(
+                            #     DataFrame({"Price": prices}),
+                            #     disabled=True,
+                            #     hide_index=False,
+                            #     use_container_width=True,
+                            #     height=320,
+                            # )
+                            session_state.selected_data = selected_data_filter(STATEMENT_DISPLAY, selected_indices)
+                            if session_state.selected_data is not None:
+                                with left:
+                                    metric(
+                                        "Data Trading Result",
+                                        f"$ {budget - balance}",
+                                        delta=f"$ {balance} left in budget",
+                                    )
+                                with right:
+                                    metric(
+                                        "Data Items Selected",
+                                        f"{count} items",
+                                        delta=f"{count / len(prices) * 100:.2f}% of total items",
+                                    )
+                                empty_selected_title.markdown("**Data Overview**")
+                                empty_selected_table.data_editor(
+                                    DataFrame(session_state.selected_data),
+                                    disabled=True,
+                                    hide_index=True,
+                                    use_container_width=True,
+                                )
+                                flat = flat_data_display(session_state.selected_data)
+                                empty_flat_title.markdown("**Data Details**")
+                                empty_flat_table.data_editor(
+                                    DataFrame(flat),
+                                    disabled=True,
+                                    hide_index=True,
+                                    use_container_width=True,
+                                )
+                            else:
+                                empty_messages.warning("No data items found for the selected indices.")
+                        else:
+                            empty_messages.warning(
+                                "Failed! You cannot buy any data items within your budget of ${budget}.")
             else:
                 empty_messages.error(f"The database is not found, please create the database first.")
     else:
