@@ -5,8 +5,9 @@
 # @Version  :   Version 0.1.0
 # @File     :   DB.py
 # @Desc     :
-from json import loads
 
+from json import loads
+from os import path
 from pandas import DataFrame
 from streamlit import (sidebar, subheader, empty, text_input, button,
                        caption, spinner, session_state, rerun)
@@ -47,82 +48,77 @@ with sidebar:
     )
     caption("The default database is SQLite, and the name is set to `db_sqlite`.")
 
-    if db_name == "db_sqlite":
-        # Check if the database has been created
-        if "db_created" not in session_state:
-            session_state.db_created = False
-
-        # Create a button to create the database
+    # Check if the database file exists
+    if path.exists("db_sqlite.db"):
+        empty_messages.info(
+            f"The database file `{db_name}` already exists. You can create or delete it if you want."
+        )
         if button(
-                "Create Database", type="primary", use_container_width=True,
-                help="Click to create the SQLite database with the name `db_sqlite`.",
+                "Display Database", type="secondary", use_container_width=True,
+                help="Click to display the content of the SQLite database with the name `db_sqlite`."
         ):
-            with spinner("Creating the database..."):
-                # Initialise the SQLite database
-                with SQLiteInitializer(STATEMENT_INIT) as sqlite:
-                    session_state.db_created = True
-                    empty_messages.success(f"Database `{db_name}` created successfully!")
+            with spinner("Displaying the database content..."):
+                empty_messages.info("Generating data, please wait...")
+                # Display the database content
+                with SQLiteInitializer(STATEMENT_DISPLAY) as sqlite:
+                    rows = sqlite.table_display()
+                    columns = ["id", "gender", "age", "category", "price", "content", "created_time"]
+                    flat: list = []
+                    if rows:
+                        for row in rows:
+                            id, gender, age, category, price, content_str, created_time = row
+                            content_list: dict = loads(content_str)
+                            for content_item in content_list:
+                                flat.append({
+                                    "id": id,
+                                    "gender": gender,
+                                    "age": age,
+                                    "category": category,
+                                    "price": price,
+                                    "created_time": created_time,
+                                    **content_item,
+                                })
+                            # Display the table data in the Streamlit app
+                            empty_messages.data_editor(
+                                DataFrame(flat),
+                                disabled=True,
+                                hide_index=True,
+                                use_container_width=True,
+                                height=600,
+                            )
+                    else:
+                        empty_messages.warning("The database is empty.")
 
-        # Display or check whether the database exists
-        if session_state.db_created:
-            # Check if the database has been created
-            if button(
-                    "Check Database", type="secondary", use_container_width=True,
-                    help="Click to check if the SQLite database with the name `db_sqlite` has been created.",
-            ):
-                with spinner("Checking the database..."):
-                    if is_db(STATEMENT_CHECK):
-                        empty_messages.info("The database has been created successfully.")
-
-            # Display the database content
-            if button(
-                    "Display Database", type="tertiary", use_container_width=True,
-                    help="Click to display the content of the SQLite database with the name `db_sqlite`."
-            ):
-                with spinner("Displaying the database content..."):
-                    empty_messages.info("Generating data, please wait...")
-                    # Display the database content
-                    with SQLiteInitializer(STATEMENT_DISPLAY) as sqlite:
-                        rows = sqlite.table_display()
-                        columns = ["id", "gender", "age", "category", "price", "content", "created_time"]
-                        flat: list = []
-                        if rows:
-                            for row in rows:
-                                id, gender, age, category, price, content_str, created_time = row
-                                content_list: dict = loads(content_str)
-                                for content_item in content_list:
-                                    flat.append({
-                                        "id": id,
-                                        "gender": gender,
-                                        "age": age,
-                                        "category": category,
-                                        "price": price,
-                                        "created_time": created_time,
-                                        **content_item,
-                                    })
-                                # Display the table data in the Streamlit app
-                                empty_messages.data_editor(
-                                    DataFrame(flat),
-                                    disabled=True,
-                                    hide_index=True,
-                                    use_container_width=True,
-                                    height=600,
-                                )
-                        else:
-                            empty_messages.warning("The database is empty.")
-
-            # If the database has been created, you can delete it if you want
-            if button(
-                    "Delete Database", type="secondary", use_container_width=True,
-                    help="Click to delete the SQLite database with the name `db_sqlite`."
-            ):
-                with spinner("Deleting the database..."):
-                    # Reset the session state
-                    session_state.db_created = False
-                    db_remover()
-                    empty_messages.success(f"The database deleted successfully!")
-                    rerun()
-        else:
-            empty_messages.warning("The database has not been created yet.")
+        # If the database has been created, you can delete it if you want
+        if button(
+                "Delete Database", type="tertiary", use_container_width=True,
+                help="Click to delete the SQLite database with the name `db_sqlite`."
+        ):
+            with spinner("Deleting the database..."):
+                # Reset the session state
+                session_state.db_created = False
+                db_remover()
+                empty_messages.success(f"The database deleted successfully!")
+                rerun()
     else:
-        empty_messages.error("Please enter the database name you like.")
+        empty_messages.warning("The database has not been created yet.")
+
+        if db_name == "db_sqlite":
+            # Check if the database has been created
+            if "db_created" not in session_state:
+                session_state.db_created = False
+
+            # Create a button to create the database
+            if button(
+                    "Create Database", type="primary", use_container_width=True,
+                    help="Click to create the SQLite database with the name `db_sqlite`.",
+            ):
+                with spinner("Creating the database..."):
+                    # Initialise the SQLite database
+                    with SQLiteInitializer(STATEMENT_INIT) as sqlite:
+                        session_state.db_created = True
+                        empty_messages.success(f"Database `{db_name}` created successfully!")
+                # Rerun the app to refresh the state
+                rerun()
+        else:
+            empty_messages.error("Please enter the database name you like.")
