@@ -25,21 +25,22 @@ development of data marketplaces under **differential privacy** constraints. In 
 from the paper [_“Integrated Private Data Trading Systems for Data
 Marketplaces”_](https://ebooks.iospress.nl/doi/10.3233/FAIA230420) (You can get the PDF by
 clicking [here](https://ebooks.iospress.nl/pdf/doi/10.3233/FAIA230420))by **Weidong Li et al.**, which outlines a
-theoretical framework for balancing **privacy**, **utility**, and **economic incentives** in data trading environments.
-This foundational work has been instrumental in shaping PrivAgora’s **pricing mechanism**, **incentive design**, and
+theoretical framework for balancing **privacy**, **accuracy**, and **incentives** in data trading scenarios.
+This work has been instrumental in shaping PrivAgora’s **pricing mechanism**, **incentive design**, and
 **privacy-preserving workflow**.
 
-Moreover, **Dr. Weidong Li** is a scientific and technical advisor for the PrivAgora sandbox application. Her expertise
+Moreover, **Ms. Weidong Li** is the scientific and technical advisor for the PrivAgora sandbox application. Her
+expertise
 has guided the implementation of key components in the demo, ensuring **conceptual fidelity** to the original PDQS
 vision while adapting it to a more **applied and interactive context**.
 
-Dr. Weidong Li’s PDQS framework addresses the core challenge of **balancing data utility and privacy protection** in
+Ms. Weidong Li’s PDQS framework addresses the core challenge of **balancing data usability and privacy protection** in
 private marketplaces. Traditional systems often decouple **procurement** (which data to buy) from **query** (what
 insights to generate), leading to **excessive noise addition** and reduced accuracy. By contrast, her **integrated
 approach** simultaneously determines:
 
 - the **data owners** to purchase from,
-- the level of **privacy budget allocation**, and
+- the level of **privacy budget** allocated, and
 - the **query mechanism**,
 
 resulting in more accurate outcomes under the same budget.
@@ -53,7 +54,7 @@ PrivAgora follows the same **high-level architecture** — involving **dataset v
    the overall workflow and structure of real private data query systems.
 
 2. **Design Prototype for Transparent Budget Allocation**:  
-   While Dr. Weidong Li’s work focuses on **neural and greedy optimisation strategies** to maximise utility under
+   While Ms. Weidong Li’s work focuses on **neural and greedy optimisation strategies** to maximise utility under
    privacy constraints, PrivAgora emphasises **user-facing budget flows** and **incentive transparency**, echoing ideas
    from **ECAI 2023** on **simultaneous selection and noise calibration** to ensure **incentive compatibility** and
    **feasibility**.
