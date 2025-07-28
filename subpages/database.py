@@ -54,7 +54,7 @@ with sidebar:
             f"The database file `{db_name}` already exists. You can create or delete it if you want."
         )
         if button(
-                "Display Database", type="secondary", use_container_width=True,
+                "Show All Data", type="secondary", use_container_width=True,
                 help="Click to display the content of the SQLite database with the name `db_sqlite`."
         ):
             with spinner("Displaying the database content..."):
@@ -98,6 +98,7 @@ with sidebar:
                 # Reset the session state
                 session_state.db_created = False
                 db_remover()
+                session_state.clear()
                 empty_messages.success(f"The database deleted successfully!")
                 rerun()
     else:
