@@ -69,7 +69,7 @@ def subpages_setter() -> None:
             "Home",
             "Account",
             "Database Creation & Management",
-            "Data Display & Insert",
+            "Data Generate, Display & Insert",
             "Data Trade",
             "Post-Trade Data Analysis",
             "About",
