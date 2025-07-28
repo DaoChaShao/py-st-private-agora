@@ -72,6 +72,7 @@
 
 ### Bug Fixes
 
+- format link in README.md for better readability ([6766d8e](https://github.com///commit/6766d8e2251b99925ab021d5f495f461bcf4db6b))
 - update Streamlit link in README.zh-CN.md to reflect new URL ([dcbb4f0](https://github.com///commit/dcbb4f0368c0e6a7b77cdb1972beb8bb9bfbd8cd))
 - update Streamlit link in README.md to reflect new URL ([c2921b3](https://github.com///commit/c2921b34f020f879d5a5d788a3f9aea81d49d91e))
 - correct spelling in comments and improve error messaging for unavailable data ([03affd7](https://github.com///commit/03affd7fec774fe820b4ae0888f35ced8235edca))
@@ -79,6 +80,7 @@
 
 ### Chore
 
+- update CHANGELOG.md with recent updates to Streamlit links for accuracy ([800849e](https://github.com///commit/800849e867e812b11ff8f64dd053f01ff727b9b4))
 - update CHANGELOG.md with recent updates to login prompt for clarity ([fb441e0](https://github.com///commit/fb441e0dbb53f18642d9f9e96a11a5a0d4c2962b))
 - update CHANGELOG.md with recent updates to README files for clarity and accuracy ([cb2b207](https://github.com///commit/cb2b20781d8154311ddf57c6cd154ec9d0be8b5a))
 - update CHANGELOG.md with recent feature additions and improvements ([b4eb7a6](https://github.com///commit/b4eb7a6a1a1ff9c155392e5cdcfc7873779579e4))
