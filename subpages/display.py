@@ -72,17 +72,26 @@ with sidebar:
         caption(f"The category you selected is **{category}**.")
         empty_messages.info(f"Here you can explore the data related to **{category}**.")
 
-        # Check if the database is ready
-        if "data_ready" not in session_state:
-            session_state.data_ready = False
+        # Initialise the session state for data insert
+        if "inserted_status" not in session_state:
+            session_state.inserted_status = {
+                "Social Media": False,
+                "Short Video": False,
+                "Mobile Payment": False,
+                "Health & Fitness": False,
+                "Maps & Navigation": False
+            }
+        button_status = session_state.inserted_status.get(category, False)
+        # Initialise the session state for the inserted message display
+        if "message_status" not in session_state:
+            session_state.message_status = False
+        if "message_success" not in session_state:
+            session_state.message_success = ""
 
         if button(
                 "Display Data", type="primary", use_container_width=True,
                 help="Click to display the data in this category."
         ):
-
-            session_state.data_ready = True
-
             with spinner():
                 empty_messages.info("Generating data, please wait...")
 
@@ -202,44 +211,57 @@ with sidebar:
                         empty_messages.warning(f"Data for **{category}** is not yet available.")
 
         # Set the button to insert the data into the database
-        if session_state.data_ready:
-            if button(
-                    "Insert Data", type="secondary", use_container_width=True,
-                    help="Click to insert the displayed data into the SQLite database."
-            ):
-                if path.exists("db_sqlite.db"):
-                    with spinner("Inserting data into the database..."):
-                        # Implement the logic to insert the data into your database
-                        match category:
-                            case "Social Media":
-                                for user in session_state.social_media:
-                                    query_executor(user)
-                                    empty_messages.success("Data **SOCIAL MEDIA** is inserted successfully!")
-                            case "Short Video":
-                                for user in session_state.short_video:
-                                    query_executor(user)
-                                    empty_messages.success("Data **SHORT VIDEO** is inserted successfully!")
-                            case "Mobile Payment":
-                                for user in session_state.mobile_payment:
-                                    query_executor(user)
-                                    empty_messages.success("Data **MOBILE PAYMENT** is inserted successfully!")
-                            case "Health & Fitness":
-                                for user in session_state.health_fitness:
-                                    query_executor(user)
-                                    empty_messages.success("Data **HEALTH & FITNESS** is inserted successfully!")
-                            case "Maps & Navigation":
-                                for user in session_state.maps_navigation:
-                                    query_executor(user)
-                                    empty_messages.success("Data **MAPS & NAVIGATION** is inserted successfully!")
-                            case _:
-                                empty_messages.error(f"Data for **{category}** is not yet available.")
+        if button(
+                "Insert Data", type="secondary", use_container_width=True,
+                disabled=button_status,
+                help="Click to insert the displayed data into the SQLite database."
+        ):
+            if path.exists("db_sqlite.db"):
+                with spinner("Inserting data into the database..."):
+                    # Implement the logic to insert the data into your database
+                    match category:
+                        case "Social Media":
+                            for user in session_state.social_media:
+                                query_executor(user)
+                                session_state.message_success = "Data **SOCIAL MEDIA** is inserted successfully!"
+                                session_state.message_status = True
+                                session_state.inserted_status["Social Media"] = True
+                        case "Short Video":
+                            for user in session_state.short_video:
+                                query_executor(user)
+                                session_state.message_success = "Data **SHORT VIDEO** is inserted successfully!"
+                                session_state.message_status = True
+                                session_state.inserted_status["Short Video"] = True
+                        case "Mobile Payment":
+                            for user in session_state.mobile_payment:
+                                query_executor(user)
+                                session_state.message_success = "Data **MOBILE PAYMENT** is inserted successfully!"
+                                session_state.message_status = True
+                                session_state.inserted_status["Mobile Payment"] = True
+                        case "Health & Fitness":
+                            for user in session_state.health_fitness:
+                                query_executor(user)
+                                session_state.message_success = "Data **HEALTH & FITNESS** is inserted successfully!"
+                                session_state.message_status = True
+                                session_state.inserted_status["Health & Fitness"] = True
+                        case "Maps & Navigation":
+                            for user in session_state.maps_navigation:
+                                query_executor(user)
+                                session_state.message_success = "Data **MAPS & NAVIGATION** is inserted successfully!"
+                                session_state.message_status = True
+                                session_state.inserted_status["Maps & Navigation"] = True
+                        case _:
+                            empty_messages.error(f"Data for **{category}** is not yet available.")
+                    # Refresh the page to update the session state
+                    rerun()
+            else:
+                empty_messages.error(f"Data inserted into the database does not exist.")
 
-                        session_state.data_ready = False
-                        rerun()
-                else:
-                    empty_messages.error(f"Data inserted into the database does not exist.")
-        else:
-            empty_messages.warning("No data to insert into the database. Please display data first.")
+        # Display the success message if the data is inserted successfully.
+        if session_state.message_status:
+            empty_messages.success(session_state.message_success)
+            session_state.message_status = False
+
     else:
         caption("You must select a category to display the data.")
         empty_messages.info("Please **select a category** to explore the data.")
