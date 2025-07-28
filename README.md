@@ -116,7 +116,7 @@ deployments that may integrate **real private data** under rigorous privacy guar
 2. Install the required dependencies with the command `pip install -r requirements.txt`.
 3. Run the application with the command `streamlit run main.py`.
 4. You can also try the application by visiting the following
-   link: [![Static Badge](https://img.shields.io/badge/Open%20in%20Streamlit-Daochashao-red?style=for-the-badge&logo=streamlit&labelColor=white)](https://smartcs.streamlit.app/)
+   link: [![Static Badge](https://img.shields.io/badge/Open%20in%20Streamlit-Daochashao-red?style=for-the-badge&logo=streamlit&labelColor=white)](https://datatrade.streamlit.app/)
 
 **LICENCE**
 ---
