@@ -5,6 +5,7 @@
 
 ### Features
 
+- update login prompt to specify default username and password for clarity ([e7659d1](https://github.com///commit/e7659d18c40982120838d12befa10dd2275af43a))
 - refine README.zh-CN.md for clarity and accuracy in data trading concepts ([bc2b1f8](https://github.com///commit/bc2b1f8cc34d30f3d4c751fb2a189cee6f75e929))
 - update README.md to correct references and improve clarity on privacy and data trading concepts ([980c912](https://github.com///commit/980c91236e4d523b81c9b1a736e6bd75eac746e9))
 - enhance trade.py with improved data display and error handling for trading results ([3e01337](https://github.com///commit/3e0133730d085970f9453b835abc170f65611f9a))
@@ -76,6 +77,7 @@
 
 ### Chore
 
+- update CHANGELOG.md with recent updates to README files for clarity and accuracy ([cb2b207](https://github.com///commit/cb2b20781d8154311ddf57c6cd154ec9d0be8b5a))
 - update CHANGELOG.md with recent feature additions and improvements ([b4eb7a6](https://github.com///commit/b4eb7a6a1a1ff9c155392e5cdcfc7873779579e4))
 - update CHANGELOG.md for version 0.1.0 with recent date correction ([349d4ee](https://github.com///commit/349d4ee15fd81a0a9b67a09fc91359b5ce229dcf))
 - update CHANGELOG.md for version 0.1.0 with recent feature additions and improvements ([fec4922](https://github.com///commit/fec492291fdc323d1a55188f6c82bb1e23eb76d6))
