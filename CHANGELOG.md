@@ -5,6 +5,15 @@
 
 ### Features
 
+- enhance trade.py with improved data display and error handling for trading results ([3e01337](https://github.com///commit/3e0133730d085970f9453b835abc170f65611f9a))
+- enhance README.zh-CN.md with detailed project overview and research inspiration ([b914161](https://github.com///commit/b91416113b00323ef46900f2212a5415adf41e10))
+- enhance README.md with detailed project description and research inspiration ([ca8a067](https://github.com///commit/ca8a0674cdcd3d9f5bc0edee6b8990a2f0b66607))
+- update layout.py to clarify menu option for data generation and display ([1e19996](https://github.com///commit/1e1999694e0eb25451c183338ffcc15a6edc68cb))
+- update home.py with enhanced data analysis and JSON inspection descriptions ([5cb1198](https://github.com///commit/5cb11982e210c0ebd551c08dae6aeb17365cea6e))
+- integrate data_exists_checker for category data validation in display.py ([4ed8e51](https://github.com///commit/4ed8e51c175ce438ab6e77e57e922cc391bdf6d8))
+- add data_exists_checker function to verify data presence in the database ([c3e418f](https://github.com///commit/c3e418f10820e47d651f2180ecd1a9b5f727f4f4))
+- rename button text in database.py for clarity and clear session state on deletion ([3a07aee](https://github.com///commit/3a07aee5e3cc87681a8de9ba4efdde6bffac4177))
+- enhance about.py with updated feature descriptions for data trading simulation and LLM integration ([f0c8f66](https://github.com///commit/f0c8f66e8e18a8540ea1da14ee50330190ded27a))
 - store selected data in session state for improved data handling ([fdba86d](https://github.com///commit/fdba86d47540c564aad8bd178b36dfec59291ad5))
 - add OpenAI package to requirements for API integration ([41a7da6](https://github.com///commit/41a7da6b77e899c4da962a84edfab00434b9140f))
 - add model.py for OpenAI and DeepSeek completer API wrappers ([a003565](https://github.com///commit/a0035656bdde2cb4489312009ba1e30504aa857a))
@@ -65,7 +74,7 @@
 
 ### Chore
 
-- update CHANGELOG.md for version 0.1.0 with recent date correction ([fe8923c](https://github.com///commit/fe8923c2817206da818238a8536881d21810ca20))
+- update CHANGELOG.md for version 0.1.0 with recent date correction ([349d4ee](https://github.com///commit/349d4ee15fd81a0a9b67a09fc91359b5ce229dcf))
 - update CHANGELOG.md for version 0.1.0 with recent feature additions and improvements ([fec4922](https://github.com///commit/fec492291fdc323d1a55188f6c82bb1e23eb76d6))
 - update CHANGELOG.md to include recent feature additions and improvements ([0463eae](https://github.com///commit/0463eae8bdf7b2d8b0c76d96f33b0fd138021a7e))
 - update CHANGELOG.md for version 0.1.0 with recent feature enhancements and bug fixes ([1ceed29](https://github.com///commit/1ceed29854ec808761cfffdc9d8f9827564533b6))
