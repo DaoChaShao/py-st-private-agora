@@ -5,6 +5,8 @@
 
 ### Features
 
+- refine README.zh-CN.md for clarity and accuracy in data trading concepts ([bc2b1f8](https://github.com///commit/bc2b1f8cc34d30f3d4c751fb2a189cee6f75e929))
+- update README.md to correct references and improve clarity on privacy and data trading concepts ([980c912](https://github.com///commit/980c91236e4d523b81c9b1a736e6bd75eac746e9))
 - enhance trade.py with improved data display and error handling for trading results ([3e01337](https://github.com///commit/3e0133730d085970f9453b835abc170f65611f9a))
 - enhance README.zh-CN.md with detailed project overview and research inspiration ([b914161](https://github.com///commit/b91416113b00323ef46900f2212a5415adf41e10))
 - enhance README.md with detailed project description and research inspiration ([ca8a067](https://github.com///commit/ca8a0674cdcd3d9f5bc0edee6b8990a2f0b66607))
@@ -74,6 +76,7 @@
 
 ### Chore
 
+- update CHANGELOG.md with recent feature additions and improvements ([b4eb7a6](https://github.com///commit/b4eb7a6a1a1ff9c155392e5cdcfc7873779579e4))
 - update CHANGELOG.md for version 0.1.0 with recent date correction ([349d4ee](https://github.com///commit/349d4ee15fd81a0a9b67a09fc91359b5ce229dcf))
 - update CHANGELOG.md for version 0.1.0 with recent feature additions and improvements ([fec4922](https://github.com///commit/fec492291fdc323d1a55188f6c82bb1e23eb76d6))
 - update CHANGELOG.md to include recent feature additions and improvements ([0463eae](https://github.com///commit/0463eae8bdf7b2d8b0c76d96f33b0fd138021a7e))
